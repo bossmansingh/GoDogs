@@ -1,16 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context="singh.saurabh.projecttest2.AddPost"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="singh.saurbh.godogs.EditPost"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp">
+    android:paddingTop="10dp"
+    android:paddingRight="10dp">
 
     <ProgressBar
-        android:id="@+id/addPost_progressBar"
         style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/editPost_progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
@@ -20,10 +18,10 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/addPostContainer">
+        android:id="@+id/editPostContainer" >
 
         <EditText
-            android:id="@+id/title"
+            android:id="@+id/editPostTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -31,40 +29,36 @@
             android:layout_alignParentRight="true"
             android:hint="Title"
             android:ems="10"
-            android:typeface="serif">
-
-            <requestFocus />
-        </EditText>
+            android:typeface="serif" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView"
-            android:layout_below="@+id/title"
-            android:layout_above="@+id/submit">
+            android:id="@+id/scrollView3"
+            android:layout_below="@+id/editPostTitle"
+            android:layout_above="@+id/editSubmitButton" >
 
             <EditText
-                android:id="@+id/message"
+                android:id="@+id/edit_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@+id/title"
+                android:layout_below="@+id/editPostTitle"
                 android:hint="Message"
                 android:ems="10"
                 android:typeface="serif" />
         </ScrollView>
 
         <Button
-            android:id="@+id/submit"
+            android:id="@+id/editSubmitButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit"
-            android:onClick="submitPost"
+            android:onClick="SubmitEditPost"
             android:textColor="@android:color/background_light"
             android:background="#e3960606"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
             android:typeface="serif" />
     </RelativeLayout>
-
 </RelativeLayout>

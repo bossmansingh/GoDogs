@@ -31,10 +31,13 @@
     <string name="field_is_required">Field is required</string>
     <string name="title_activity_search_results">SearchResultsActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="delete_post">Delete post</string>
+    <string name="delete_post">Delete</string>
     <string name="title_for_delete">Select to delete</string>
     <string name="list_empty_alert_text">It seems there are no post to display</string>
     <string name="emai_not_verified">Email not verified!!</string>
     <string name="mark_all">Mark all</string>
+    <string name="title_activity_edit_post">EditPost</string>
+    <string name="edit_post">Edit</string>
+    <string name="title_refresh">Refresh</string>
 
 </resources>

@@ -62,12 +62,10 @@ public class SinglePostDisplay extends ActionBarActivity {
     private List<ParseObject> arr_of_reply_objects_to_delete;
 
     private TextView mTitle, mAuthor, mMessage, mDateTime;
-    private EditText mReplytextView;
+    private EditText mReplyTextView;
     private ActionMode mActionMode = null;
     private View mProgressView;
     private View mSinglePostDisplayView;
-//    private View mScrollView;
-//    private View layout;
 
     View footerView;
     View headerView;
@@ -86,9 +84,7 @@ public class SinglePostDisplay extends ActionBarActivity {
         setContentView(R.layout.activity_single_post_display);
 
         mSinglePostDisplayView = findViewById(R.id.container_for_title_name_date);
-//        mScrollView = findViewById(R.id.container_for_scrollView);
         mProgressView = findViewById(R.id.progressBar_for_single_post);
-//        layout = findViewById(R.id.container_for_date);
 
         footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.footer, null, false);
         headerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.header, null, false);
@@ -97,7 +93,7 @@ public class SinglePostDisplay extends ActionBarActivity {
         mAuthor = (TextView) findViewById(R.id.view_author);
         mMessage = (TextView) headerView.findViewById(R.id.view_message);
         mDateTime = (TextView) findViewById(R.id.date_time_single_post_display);
-        mReplytextView = (EditText) footerView.findViewById(R.id.editText_reply);
+        mReplyTextView = (EditText) footerView.findViewById(R.id.editText_reply);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -126,7 +122,6 @@ public class SinglePostDisplay extends ActionBarActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy   h:mm a");
                     posted_on = sdf.format(d1);
 
-//                    layout.setVisibility(View.VISIBLE);
                     mTitle.setText(parseObject.get("title").toString());
                     mAuthor.setText(parseObject.get("firstName").toString());
                     mMessage.setText(parseObject.get("body").toString());
@@ -149,15 +144,15 @@ public class SinglePostDisplay extends ActionBarActivity {
     }
 
     public void AddReply(View v) {
-        mReplytextView.setError(null);
-        if (mReplytextView.length() == 0) {
-            mReplytextView.setError(getString(R.string.field_is_required));
-            View focusView = mReplytextView;
+        mReplyTextView.setError(null);
+        if (mReplyTextView.length() == 0) {
+            mReplyTextView.setError(getString(R.string.field_is_required));
+            View focusView = mReplyTextView;
             focusView.requestFocus();
         } else {
 
             ParseUser currentUser = ParseUser.getCurrentUser();
-            String message = mReplytextView.getText().toString();
+            String message = mReplyTextView.getText().toString();
             ParseObject replyPostObject = new ParseObject("Replies");
             replyPostObject.put("firstName", currentUser.get("firstName").toString());
             replyPostObject.put("replyMessage", message);
@@ -492,11 +487,36 @@ public class SinglePostDisplay extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_edit_post) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
+            query.getInBackground(objectId, new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject parseObject, ParseException e) {
+                    if (e == null) {
+                        if (parseObject.getParseObject("user").getObjectId().compareTo(ParseUser.getCurrentUser().getObjectId()) == 0) {
+                            Intent i = new Intent(mContext, EditPost.class);
+                            i.putExtra("objectId", objectId);
+                            i.putExtra("title", mTitle.getText().toString());
+                            i.putExtra("message", mMessage.getText().toString());
+                            finish();
+                            startActivity(i);
+                        } else {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext, android.R.style.Theme_Holo_Dialog));
+                            builder.setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setTitle("You are not authorized to edit this post")
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+
+                                        }
+                                    }).show();
+                        }
+                    }
+                }
+            });
+
             return true;
         }
-        if (id == R.id.delete_for_singal_post) {
+        if (id == R.id.action_delete_for_single_post) {
             AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext,android.R.style.Theme_Holo_Dialog));
             builder.setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("Are you sure?")
@@ -671,15 +691,6 @@ public class SinglePostDisplay extends ActionBarActivity {
                 }
             });
 
-//            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
-//            mScrollView.animate().setDuration(shortAnimTime).alpha(
-//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-//                @Override
-//                public void onAnimationEnd(Animator animation) {
-//                    mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
-//                }
-//            });
-
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -693,7 +704,6 @@ public class SinglePostDisplay extends ActionBarActivity {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mSinglePostDisplayView.setVisibility(show ? View.GONE : View.VISIBLE);
-//            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

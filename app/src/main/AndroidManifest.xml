@@ -64,9 +64,15 @@
                 android:value="singh.saurbh.godogs.MenuScreen" />
         </activity>
 
-        <!--Push Notification requirements-->
-        <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/push_icon"/>
+        <!-- Push Notification requirements -->
+        <meta-data
+            android:name="com.parse.push.notification_icon"
+            android:resource="@drawable/push_icon" />
 
+        <activity
+            android:name=".EditPost"
+            android:label="@string/title_activity_edit_post" >
+        </activity>
     </application>
 
 </manifest>

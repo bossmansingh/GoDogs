@@ -49,7 +49,7 @@ public class LoginActivity extends ActionBarActivity {
         mPasswordView = (EditText) findViewById(R.id.password);
 
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        mProgressView = findViewById(R.id.addPost_progressBar);
         mForgotPasswordView = findViewById(R.id.forgotPasswordTextView);
         mSignUpView = (TextView)findViewById(R.id.signUpTextView);
 
