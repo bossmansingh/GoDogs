@@ -61,6 +61,7 @@ public class DiscussionForum {
         flag = false;
         // Find all posts
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
+        query.orderByAscending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
@@ -138,19 +139,34 @@ public class DiscussionForum {
         }
     }
 
-    public void searchPostTask(String query) {
+    public void searchPostTask(final String query) {
         dialog.show();
         flag = false;
-        ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Post");
-        parseQuery.whereContains("title", query);
-        parseQuery.findInBackground(new FindCallback<ParseObject>() {
+
+        ParseQuery<ParseObject> query1 = ParseQuery.getQuery("Post");
+        query1.whereMatches("title", query, "im");
+
+        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Post");
+        query2.whereMatches("firstName", query, "im");
+
+        List<ParseQuery<ParseObject>> queries = new ArrayList<>();
+        queries.add(query1);
+        queries.add(query2);
+
+        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+        mainQuery.orderByAscending("createdAt");
+        mainQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
-                dialog.dismiss();
-                if (e == null) {
-                    updateList(parseObjects, flag);
+                if (parseObjects.size() > 0) {
+                    dialog.dismiss();
+                    if (e == null) {
+                        updateList(parseObjects, flag);
+                    } else {
+                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 } else {
-                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "No results found!!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -164,6 +180,7 @@ public class DiscussionForum {
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
         query.whereEqualTo("user", currentUser);
+        query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
@@ -219,14 +236,6 @@ public class DiscussionForum {
             ArrayAdapter<HashMap<String, String>> adapter = new InteractiveArrayAdapter(mContext, postList_for_delete, flag_for_checkbox);
             ListView lv = (ListView) mContext.findViewById(android.R.id.list);
             lv.setAdapter(adapter);
-            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    Intent i = new Intent(mContext, SinglePostDisplay.class);
-//                    mContext.startActivity(i);
-                }
-            });
         } else {
             ListView lv = (ListView) mContext.findViewById(android.R.id.list);
             View view = View.inflate(mContext, R.layout.activity_discussion_forum, null);

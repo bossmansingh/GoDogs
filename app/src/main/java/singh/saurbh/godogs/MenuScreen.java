@@ -139,6 +139,7 @@ public class MenuScreen extends ActionBarActivity
 
                 MenuItem searchItem = menu.findItem(R.id.action_search_discussion_forum);
                 SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+                searchView.setQueryHint("Name/Title");
                 searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
@@ -149,11 +150,29 @@ public class MenuScreen extends ActionBarActivity
 
                     @Override
                     public boolean onQueryTextChange(String newText) {
-                        if (newText.length() > 3) {
+                        if (newText.length() > 4) {
                             mDiscussionForum.searchPostTask(newText);
                             return true;
-                        } else
+                        } else {
+                            if (newText.length() == 0) {
+                                mDiscussionForum.startLoadCommentsTask();
+                                return true;
+                            }
                             return false;
+                        }
+                    }
+                });
+
+                MenuItemCompat.setOnActionExpandListener(searchItem, new MenuItemCompat.OnActionExpandListener() {
+                    @Override
+                    public boolean onMenuItemActionCollapse(MenuItem item) {
+                        mDiscussionForum.startLoadCommentsTask();
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onMenuItemActionExpand(MenuItem item) {
+                        return true;
                     }
                 });
             }
@@ -184,10 +203,6 @@ public class MenuScreen extends ActionBarActivity
         if (id == R.id.delete_post) {
             mDiscussionForum.selectPostToDelete();
             return true;
-        }
-
-        if (id == R.id.action_search_discussion_forum) {
-//            searchView.setIconified(false);
         }
 
         if (id == R.id.action_logOut) {
