@@ -13,9 +13,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,16 +27,15 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.SearchView;
 
 import com.parse.ParseUser;
 
 
 public class MenuScreen extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, SearchView.OnQueryTextListener {
 
     // Variables for search view
-    SearchView searchView = null;
+//    SearchView searchView = null;
 
     // Our created menu to use
     private Menu mMenu;
@@ -136,30 +137,25 @@ public class MenuScreen extends ActionBarActivity
             if(mFragmentNumber == 1) {
                 getMenuInflater().inflate(R.menu.menu_discussion_forum, menu);
 
-//                // Associate searchable configuration with the SearchView
-//                SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//                searchView = (SearchView) menu.findItem(R.id.action_search_discussion_forum).getActionView();
-//                searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-//                searchView.setQueryHint("Name/Title");
-//
-//                searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-//                    @Override
-//                    public boolean onClose() {
-//                        if (mPlaceHolderFragment.isNetworkAvailable()) {
-//                            mDiscussionForum.startLoadCommentsTask();
-//                        }
-//                        else {
-//                            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext, android.R.style.Theme_Holo_Dialog));
-//                            builder.setTitle(R.string.check_network)
-//                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                                        public void onClick(DialogInterface dialog, int id) {
-//
-//                                        }
-//                                    }).show();
-//                        }
-//                        return false;
-//                    }
-//                });
+                MenuItem searchItem = menu.findItem(R.id.action_search_discussion_forum);
+                SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        // perform query here
+                        mDiscussionForum.searchPostTask(query);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        if (newText.length() > 3) {
+                            mDiscussionForum.searchPostTask(newText);
+                            return true;
+                        } else
+                            return false;
+                    }
+                });
             }
             if (mFragmentNumber == 2)
                 getMenuInflater().inflate(R.menu.menu_news, menu);
@@ -188,6 +184,10 @@ public class MenuScreen extends ActionBarActivity
         if (id == R.id.delete_post) {
             mDiscussionForum.selectPostToDelete();
             return true;
+        }
+
+        if (id == R.id.action_search_discussion_forum) {
+//            searchView.setIconified(false);
         }
 
         if (id == R.id.action_logOut) {
@@ -227,6 +227,17 @@ public class MenuScreen extends ActionBarActivity
             m.getActionView().clearAnimation();
             m.setActionView(null);
         }
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        mDiscussionForum.searchPostTask(s);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
     }
 
     public class UpdateTask extends AsyncTask<Void, Void, Void> {
@@ -399,7 +410,7 @@ public class MenuScreen extends ActionBarActivity
             String query = intent.getStringExtra(SearchManager.QUERY);
 
             //use the query to search your data somehow
-//            mDiscussionForum.startSearchCommentsTask(query, false, false);
+//            mDiscussionForum.searchPostTask(query);
         }
     }
 }

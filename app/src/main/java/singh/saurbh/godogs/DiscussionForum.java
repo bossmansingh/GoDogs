@@ -138,6 +138,24 @@ public class DiscussionForum {
         }
     }
 
+    public void searchPostTask(String query) {
+        dialog.show();
+        flag = false;
+        ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("Post");
+        parseQuery.whereContains("title", query);
+        parseQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
+                dialog.dismiss();
+                if (e == null) {
+                    updateList(parseObjects, flag);
+                } else {
+                    Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+
     public void selectPostToDelete() {
         dialog.show();
         flag = true;

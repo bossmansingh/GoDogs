@@ -44,7 +44,7 @@ public class AddPost extends ActionBarActivity {
         title.setError(null);
         message.setError(null);
 
-        mProgressView = findViewById(R.id.editPost_progressBar);
+        mProgressView = findViewById(R.id.addPost_progressBar);
         mAddPostContainer = findViewById(R.id.addPostContainer);
     }
 

@@ -263,6 +263,7 @@ public class SinglePostDisplay extends ActionBarActivity {
                         SimpleAdapter adapter = new SimpleAdapter(mContext, temp, android.R.layout.simple_list_item_1, keys, ids);
                         lv.setAdapter(adapter);
                         lv.setFooterDividersEnabled(false);
+                        lv.setItemsCanFocus(false);
                     }
                     if (lv.getHeaderViewsCount() == 0)
                         lv.addHeaderView(headerView);

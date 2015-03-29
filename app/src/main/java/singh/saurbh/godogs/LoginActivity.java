@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
@@ -41,8 +40,6 @@ public class LoginActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        Parse.initialize(this, "6mpUe7gqnk7iYjLyLzxAjHgw8VFm18FaqHjVNv7L", "CPJyx49fLM4FfVYqRdb3eI8HYxl1qQys0FjAqKBF");
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
