@@ -655,6 +655,15 @@ public class SinglePostDisplay extends ActionBarActivity {
                 }
             });
 
+            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mScrollView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -668,6 +677,7 @@ public class SinglePostDisplay extends ActionBarActivity {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mSinglePostDisplayView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

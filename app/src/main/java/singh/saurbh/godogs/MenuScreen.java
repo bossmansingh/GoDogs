@@ -80,8 +80,19 @@ public class MenuScreen extends ActionBarActivity
         super.onBackPressed();
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
     public void addPost(View v) {
         Intent i = new Intent(MenuScreen.this, AddPost.class);
+        finish();
         startActivity(i);
     }
 
