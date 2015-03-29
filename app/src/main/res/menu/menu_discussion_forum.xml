@@ -1,0 +1,36 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="singh.saurabh.projecttest2.MenuScreen" >
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"/>
+
+    <item
+        android:id="@+id/action_refresh"
+        app:showAsAction="ifRoom"
+        android:title="Refresh"
+        android:orderInCategory="101"
+        android:icon="@android:drawable/ic_popup_sync" />
+
+    <item
+        android:id="@+id/action_search_discussion_forum"
+        app:showAsAction="always"
+        android:title="Search"
+        android:orderInCategory="102"
+        android:icon="@android:drawable/ic_search_category_default"
+        android:actionViewClass="android.widget.SearchView"/>
+
+    <item
+        android:id="@+id/delete_post"
+        android:title="@string/delete_post"
+        android:orderInCategory="103"/>
+
+    <item android:id="@+id/action_logOut"
+        android:title="@string/logout"
+        android:orderInCategory="104"/>
+
+
+</menu>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="singh.saurbh.godogs" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="singh.saurbh.godogs.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".ForgotPassword"
+            android:label="@string/title_activity_forgot_password"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="singh.saurbh.godogs.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".MenuScreen"
+            android:label="@string/title_activity_menu_screen"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".AddPost"
+            android:label="@string/title_activity_add_post"
+            android:parentActivityName=".MenuScreen"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="singh.saurbh.godogs.MenuScreen" />
+        </activity>
+        <activity
+            android:name=".SinglePostDisplay"
+            android:label="@string/title_activity_single_post_display"
+            android:parentActivityName=".MenuScreen"
+            android:screenOrientation="portrait" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="singh.saurbh.godogs.MenuScreen" />
+        </activity>
+
+        <!--Push Notification requirements-->
+        <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/push_icon"/>
+
+    </application>
+
+</manifest>

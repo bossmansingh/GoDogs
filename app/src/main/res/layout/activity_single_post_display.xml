@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/background_light"
+    android:padding="10dp">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/progressBar_for_single_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/container_for_title_name_date"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/view_title"
+            android:textColor="#FF100D54"
+            android:textStyle="bold"
+            android:textIsSelectable="true"
+            android:typeface="serif"
+            android:layout_alignParentTop="true" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/container_for_date"
+            android:layout_below="@+id/view_title"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/view_author"
+                android:textColor="#e3590303"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"
+                android:typeface="serif" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/date_time_single_post_display"
+                android:inputType="datetime"
+                android:layout_marginRight="10dp"
+                android:typeface="serif" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/container_for_scrollView"
+        android:layout_below="@+id/container_for_title_name_date">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView2"
+            android:layout_below="@+id/container_for_title_name_date"
+            android:layout_above="@+id/container_for_list_of_replies"
+            android:layout_marginTop="10dp">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/container_for_list_of_replies">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/view_message"
+                    android:textColor="@android:color/background_dark"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:textIsSelectable="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Replies"
+                    android:id="@+id/textView_heading_replies"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/view_message"
+                    android:layout_marginTop="15dp"
+                    android:typeface="serif"
+                    android:layout_marginBottom="15dp" />
+
+                <ListView
+                    android:layout_width="fill_parent"
+                    android:layout_height="250dp"
+                    android:id="@+id/list_for_replies"
+                    android:background="@android:color/background_light"
+                    android:layout_below="@+id/textView_heading_replies" />
+
+                <LinearLayout
+                    android:id="@+id/container_for_replyButton"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:layout_below="@+id/list_for_replies">
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editText_reply"
+                        android:hint="Type in your reply"
+                        android:typeface="serif"
+                        android:layout_marginTop="10dp" />
+
+                    <Button
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reply"
+                        android:id="@+id/reply_button"
+                        android:background="#e3960606"
+                        android:textColor="@android:color/background_light"
+                        android:paddingRight="30dp"
+                        android:paddingLeft="30dp"
+                        android:clickable="true"
+                        android:onClick="AddReply"
+                        android:typeface="serif" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</RelativeLayout>

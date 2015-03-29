@@ -1,0 +1,20 @@
+<resources>
+        <string name="title_activity_sign_up">Sign Up</string>
+
+    <!-- Strings related to login -->
+    <string name="email_signUp">username@mail.fresnostate.edu</string>
+    <string name="password_signUp">Password (min 5 characters)</string>
+    <string name="confirm_password_signUp">Confirm Password</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="action_sign_up_short">Sign Up</string>
+    <string name="first_name_signUp">First Name</string>
+    <string name="last_name_signUp">Last Name</string>
+    <string name="error_invalid_password">Password does not match</string>
+    <string name="error_password_too_short">Password too short</string>
+    <string name="something_went_wrong">Oops! Something went out of the way</string>
+    <string name="error_creating_account_message">There was an error in creating your account</string>
+    <string name="account_created">Yay! Account created successfully</string>
+    <string name="account_exist">It seems this email is already registered</string>
+    <string name="password_updated">Password successfully updated</string>
+
+</resources>

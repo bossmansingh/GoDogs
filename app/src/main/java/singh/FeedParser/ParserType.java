@@ -1,0 +1,8 @@
+package singh.FeedParser;
+/**
+ * 
+ */
+
+public enum ParserType{
+	SAX, DOM, ANDROID_SAX, XML_PULL;
+}

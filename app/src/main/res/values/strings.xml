@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GoDogs</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_menu_screen">MenuScreen</string>
+    <string name="title_section1">Discussion Forum</string>
+    <string name="check_network">Oops! Please check your network connection</string>
+    <string name="error_message_loading_data">There was an error in loading some data</string>
+    <string name="error_message_posting_data">There was an error in posting some data</string>
+    <string name="error_message_deleting_post">Some error occurred</string>
+    <string name="title_section2">Top News</string>
+    <string name="title_section3">Study Room</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="title_activity_discussion_forum">Discussion Forum</string>
+    <string name="load_more_data">Load More Data</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_news">News</string>
+    <string name="title_activity_forgot_password">Reset Password</string>
+    <string name="password_reset">Send password reset link</string>
+    <string name="password_reset_link_sent">Password reset link sent to your email</string>
+    <string name="account_activation_link_sent">Account activation link sent to your email</string>
+    <string name="some_error_occured">Err! Some error occurred</string>
+    <string name="enter_correct_code">Wrong code! Please check and enter again</string>
+    <string name="title_activity_dialog_enter_code">Enter Code</string>
+    <string name="domain">http://10.0.0.15/android_database_connection/</string>
+    <string name="title_activity_add_post">Add Post</string>
+    <string name="title_activity_single_post_display">Single Post Display</string>
+    <string name="field_is_required">Field is required</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="delete_post">Delete post</string>
+    <string name="title_for_delete">Select to delete</string>
+    <string name="list_empty_alert_text">It seems there are no post to display</string>
+    <string name="emai_not_verified">Email not verified!!</string>
+    <string name="mark_all">Mark all</string>
+
+</resources>
