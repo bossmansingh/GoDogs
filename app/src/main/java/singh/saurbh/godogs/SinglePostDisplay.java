@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,12 +66,15 @@ public class SinglePostDisplay extends ActionBarActivity {
     private ActionMode mActionMode = null;
     private View mProgressView;
     private View mSinglePostDisplayView;
-    private View mScrollView;
+//    private View mScrollView;
+//    private View layout;
+
+    View footerView;
+    View headerView;
 
     // Our created menu to use
     private Menu mMenu;
 
-    private View layout = null;
     private Boolean zero_post_to_delete = true;
     private static int delete_post_counter;
     public Boolean[] checkList;
@@ -82,15 +86,18 @@ public class SinglePostDisplay extends ActionBarActivity {
         setContentView(R.layout.activity_single_post_display);
 
         mSinglePostDisplayView = findViewById(R.id.container_for_title_name_date);
-        mScrollView = findViewById(R.id.container_for_scrollView);
+//        mScrollView = findViewById(R.id.container_for_scrollView);
         mProgressView = findViewById(R.id.progressBar_for_single_post);
-        layout = findViewById(R.id.container_for_date);
+//        layout = findViewById(R.id.container_for_date);
+
+        footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.footer, null, false);
+        headerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.header, null, false);
 
         mTitle = (TextView) findViewById(R.id.view_title);
         mAuthor = (TextView) findViewById(R.id.view_author);
-        mMessage = (TextView) findViewById(R.id.view_message);
+        mMessage = (TextView) headerView.findViewById(R.id.view_message);
         mDateTime = (TextView) findViewById(R.id.date_time_single_post_display);
-        mReplytextView = (EditText) findViewById(R.id.editText_reply);
+        mReplytextView = (EditText) footerView.findViewById(R.id.editText_reply);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -119,7 +126,7 @@ public class SinglePostDisplay extends ActionBarActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy   h:mm a");
                     posted_on = sdf.format(d1);
 
-                    layout.setVisibility(View.VISIBLE);
+//                    layout.setVisibility(View.VISIBLE);
                     mTitle.setText(parseObject.get("title").toString());
                     mAuthor.setText(parseObject.get("firstName").toString());
                     mMessage.setText(parseObject.get("body").toString());
@@ -196,38 +203,37 @@ public class SinglePostDisplay extends ActionBarActivity {
                     int length = parseObjects.size();
                     final ArrayList<HashMap<String, String>> replyList;
 
-                    if (length > 0)
+                    if (length > 0) {
                         replyList = new ArrayList<>();
+                        for (int i = 0; i < length; i++) {
+                            ParseObject obj = parseObjects.get(i);
+                            String firstName = obj.get("firstName").toString();
+                            String replyMessage = obj.get("replyMessage").toString();
+                            ParseUser replyUserId = obj.getParseUser("replyUser");
+                            Date createdAt = obj.getCreatedAt();
+                            String posted_on = createdAt.toString();
+                            SimpleDateFormat sdf1 = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzzz yyyy");
+                            Date d1 = null;
+                            try {
+                                d1 = sdf1.parse(posted_on);
+                            } catch (java.text.ParseException ee) {
+                                ee.printStackTrace();
+                            }
+                            SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy   h:mm a");
+                            posted_on = sdf.format(d1);
+
+                            HashMap<String, String> dataList = new HashMap<>();
+                            dataList.put("firstName", firstName);
+                            dataList.put("replyMessage", replyMessage);
+                            dataList.put("createdAt", posted_on);
+                            dataList.put("replyUser", replyUserId.getObjectId());
+                            replyList.add(dataList);
+                        }
+                    }
                     else
                         replyList = null;
 
-                    for (int i = 0; i < length; i++) {
-                        ParseObject obj = parseObjects.get(i);
-                        String firstName = obj.get("firstName").toString();
-                        String replyMessage = obj.get("replyMessage").toString();
-                        ParseUser replyUserId = obj.getParseUser("replyUser");
-                        Date createdAt = obj.getCreatedAt();
-                        String posted_on = createdAt.toString();
-                        SimpleDateFormat sdf1 = new SimpleDateFormat("EEE MMM dd hh:mm:ss zzzz yyyy");
-                        Date d1 = null;
-                        try {
-                            d1 = sdf1.parse(posted_on);
-                        } catch (java.text.ParseException ee) {
-                            ee.printStackTrace();
-                        }
-                        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy   h:mm a");
-                        posted_on = sdf.format(d1);
-
-                        HashMap<String, String> dataList = new HashMap<>();
-                        dataList.put("firstName", firstName);
-                        dataList.put("replyMessage", replyMessage);
-                        dataList.put("createdAt", posted_on);
-                        dataList.put("replyUser", replyUserId.getObjectId());
-                        replyList.add(dataList);
-                    }
-
                     ListView lv = (ListView) findViewById( R.id.list_for_replies);
-                    View footerView = ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.footer_for_reply_list, null, false);
                     if (replyList != null) {
                         replyList_for_delete = replyList;
                         ArrayAdapter<HashMap<String, String>> adapter = new InteractiveArrayAdapterForReplyList(SinglePostDisplay.this, replyList);
@@ -247,15 +253,26 @@ public class SinglePostDisplay extends ActionBarActivity {
                                         v.getParent().requestDisallowInterceptTouchEvent(false);
                                         break;
                                 }
-
                                 // Handle ListView touch events.
                                 v.onTouchEvent(event);
                                 return true;
                             }
                         });
                     } else {
-
+                        ArrayList<HashMap<String, String>> temp = new ArrayList<>();
+                        HashMap<String, String> dataList = new HashMap<>();
+                        dataList.put("firstName", "");
+                        temp.add(dataList);
+                        String[] keys = {""};
+                        int[] ids = {android.R.id.text1};
+                        SimpleAdapter adapter = new SimpleAdapter(mContext, temp, android.R.layout.simple_list_item_1, keys, ids);
+                        lv.setAdapter(adapter);
+                        lv.setFooterDividersEnabled(false);
                     }
+                    if (lv.getHeaderViewsCount() == 0)
+                        lv.addHeaderView(headerView);
+                    if (lv.getFooterViewsCount() == 0)
+                        lv.addFooterView(footerView);
                 } else {
                     Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -290,7 +307,6 @@ public class SinglePostDisplay extends ActionBarActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             View single_reply_for_list_view ;
             if (convertView == null) {
-
                 LayoutInflater inflator = context.getLayoutInflater();
                 single_reply_for_list_view = inflator.inflate(R.layout.single_reply_post, null);
                 final ViewHolder viewHolder = new ViewHolder();
@@ -655,14 +671,14 @@ public class SinglePostDisplay extends ActionBarActivity {
                 }
             });
 
-            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mScrollView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
+//            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            mScrollView.animate().setDuration(shortAnimTime).alpha(
+//                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+//                }
+//            });
 
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
@@ -677,7 +693,7 @@ public class SinglePostDisplay extends ActionBarActivity {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mSinglePostDisplayView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
+//            mScrollView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

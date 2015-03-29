@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_container_for_replyButton"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_below="@+id/container_for_title_name_date"
+        android:layout_margin="10dp">
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText_reply"
+            android:hint="Type in your reply"
+            android:typeface="serif"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Reply"
+            android:id="@+id/reply_button"
+            android:background="#e3960606"
+            android:textColor="@android:color/background_light"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:clickable="true"
+            android:onClick="AddReply"
+            android:typeface="serif" />
+    </LinearLayout>
+</LinearLayout>
