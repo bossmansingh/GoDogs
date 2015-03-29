@@ -166,6 +166,7 @@ public class DiscussionForum {
                         Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {
+                    dialog.dismiss();
                     Toast.makeText(mContext, "No results found!!", Toast.LENGTH_LONG).show();
                 }
             }

@@ -21,6 +21,7 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        
         Parse.initialize(this, Keys.APP_ID, Keys.CLIENT_ID);
         ParseInstallation.getCurrentInstallation().saveInBackground();
     }
