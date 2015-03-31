@@ -20,7 +20,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -86,11 +88,11 @@ public class AddPost extends ActionBarActivity {
 
     private void postComment() {
         showProgress(true);
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        final ParseUser currentUser = ParseUser.getCurrentUser();
         String titleString = title.getText().toString();
         String messageString = message.getText().toString();
         // Make a new post
-        ParseObject post = new ParseObject("Post");
+        final ParseObject post = new ParseObject("Post");
         post.put("firstName", currentUser.get("firstName"));
         post.put("title", titleString);
         post.put("body", messageString);
@@ -101,6 +103,11 @@ public class AddPost extends ActionBarActivity {
                 showProgress(false);
                 if (e == null) {
                     Toast.makeText(mContext, "Post added successfully", Toast.LENGTH_SHORT).show();
+                    String channel = "Post_"+post.getObjectId();
+                    ParseInstallation pi = ParseInstallation.getCurrentInstallation();
+                    pi.put("firstName", currentUser.get("firstName"));
+                    ParsePush.subscribeInBackground(channel);
+                    pi.saveEventually();
                     Intent i = new Intent(mContext, MenuScreen.class);
                     startActivity(i);
                     finish();

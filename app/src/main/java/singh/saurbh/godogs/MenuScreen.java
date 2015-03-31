@@ -34,9 +34,6 @@ import com.parse.ParseUser;
 public class MenuScreen extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, SearchView.OnQueryTextListener {
 
-    // Variables for search view
-//    SearchView searchView = null;
-
     // Our created menu to use
     private Menu mMenu;
 
@@ -75,15 +72,27 @@ public class MenuScreen extends ActionBarActivity
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+//        if (mPlaceHolderFragment.isNetworkAvailable())
+//            mDiscussionForum.startLoadCommentsTask();
+//        else {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext, android.R.style.Theme_Holo_Dialog));
+//            builder.setIcon(android.R.drawable.ic_dialog_alert)
+//                    .setTitle(R.string.check_network)
+//                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//
+//                        }
+//                    }).show();
+//        }
+    }
+
+    @Override
     public void onBackPressed() {
         moveTaskToBack(true);
         MenuScreen.this.finish();
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
     }
 
     @Override
@@ -397,6 +406,8 @@ public class MenuScreen extends ActionBarActivity
 
                 case 3:
                     mFragmentNumber = 3;
+//                    Intent intent = new Intent(mContext, RespondToPushActivity.class);
+//                    startActivity(intent);
                     break;
 
                 default:

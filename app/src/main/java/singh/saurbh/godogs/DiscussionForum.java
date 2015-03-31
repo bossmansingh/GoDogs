@@ -119,16 +119,19 @@ public class DiscussionForum {
             lv.setAdapter(adapter);
             if (lv.getFooterViewsCount() == 0)
                 lv.addFooterView(footerView);
+
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    ParseObject obj = parseObjects.get((postList.size() - 1) - position);
-                    String objectId = obj.getObjectId();
-                    Intent i = new Intent(mContext, SinglePostDisplay.class);
-                    i.putExtra("objectId", objectId);
-                    mContext.startActivity(i);
+                    if ((postList.size() - 1) - position >= 0) {
+                        ParseObject obj = parseObjects.get((postList.size() - 1) - position);
+                        String objectId = obj.getObjectId();
+                        Intent i = new Intent(mContext, SinglePostDisplay.class);
+                        i.putExtra("objectId", objectId);
+                        mContext.startActivity(i);
+                    }
                 }
             });
         } else {
@@ -158,15 +161,15 @@ public class DiscussionForum {
         mainQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
+                dialog.dismiss();
                 if (parseObjects.size() > 0) {
-                    dialog.dismiss();
                     if (e == null) {
                         updateList(parseObjects, flag);
                     } else {
                         Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    dialog.dismiss();
+                    updateList(parseObjects, flag);
                     Toast.makeText(mContext, "No results found!!", Toast.LENGTH_LONG).show();
                 }
             }

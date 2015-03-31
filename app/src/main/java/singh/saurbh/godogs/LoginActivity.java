@@ -17,9 +17,9 @@ import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.parse.LogInCallback;
+import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
@@ -33,8 +33,6 @@ public class LoginActivity extends ActionBarActivity {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private View mForgotPasswordView;
-    private TextView mSignUpView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +45,8 @@ public class LoginActivity extends ActionBarActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.addPost_progressBar);
-        mForgotPasswordView = findViewById(R.id.forgotPasswordTextView);
-        mSignUpView = (TextView)findViewById(R.id.signUpTextView);
 
-
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
 
     private boolean isNetworkAvailable() {
@@ -196,24 +192,6 @@ public class LoginActivity extends ActionBarActivity {
                 }
             });
 
-            mForgotPasswordView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mForgotPasswordView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mForgotPasswordView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
-            mSignUpView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mSignUpView.animate().setDuration(shortAnimTime).alpha(
-                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mSignUpView.setVisibility(show ? View.GONE : View.VISIBLE);
-                }
-            });
-
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
@@ -227,8 +205,6 @@ public class LoginActivity extends ActionBarActivity {
             // and hide the relevant UI components.
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mForgotPasswordView.setVisibility(show ? View.GONE : View.VISIBLE);
-            mSignUpView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
 

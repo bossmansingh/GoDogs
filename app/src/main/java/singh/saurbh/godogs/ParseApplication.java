@@ -3,7 +3,6 @@ package singh.saurbh.godogs;
 import android.app.Application;
 
 import com.parse.Parse;
-import com.parse.ParseInstallation;
 
 /**
  * Created by ${SAURBAH} on ${10/29/14}.
@@ -21,8 +20,7 @@ public class ParseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        
+
         Parse.initialize(this, Keys.APP_ID, Keys.CLIENT_ID);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
     }
 }

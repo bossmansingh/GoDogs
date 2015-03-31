@@ -58,6 +58,14 @@ public class SignUpActivity extends ActionBarActivity {
         mProgressView = findViewById(R.id.login_progress_signUp);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(mContext, LoginActivity.class);
+        finish();
+        startActivity(i);
+    }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (android.net.ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkinfo = manager.getActiveNetworkInfo();

@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -39,9 +40,13 @@ import android.widget.Toast;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
+import com.parse.FunctionCallback;
 import com.parse.GetCallback;
+import com.parse.ParseCloud;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -66,9 +71,8 @@ public class SinglePostDisplay extends ActionBarActivity {
     private ActionMode mActionMode = null;
     private View mProgressView;
     private View mSinglePostDisplayView;
-
-    View footerView;
-    View headerView;
+    private View footerView;
+    private View headerView;
 
     // Our created menu to use
     private Menu mMenu;
@@ -77,17 +81,37 @@ public class SinglePostDisplay extends ActionBarActivity {
     private static int delete_post_counter;
     public Boolean[] checkList;
     public Boolean refresh_required = true;
+    private String postChannel;
+    private String replyChannel;
+    private ParseObject postObject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_post_display);
 
-        mSinglePostDisplayView = findViewById(R.id.container_for_title_name_date);
-        mProgressView = findViewById(R.id.progressBar_for_single_post);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            objectId = extras.getString("objectId");
+        }
+        postChannel = "Post_"+objectId;
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
+        query.getInBackground(objectId, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if (e == null) {
+                    postObject = parseObject;
+                }
+            }
+        });
 
         footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.footer, null, false);
         headerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.header, null, false);
+
+        mSinglePostDisplayView = findViewById(R.id.container_for_title_name_date);
+        mProgressView = findViewById(R.id.progressBar_for_single_post);
+
 
         mTitle = (TextView) findViewById(R.id.view_title);
         mAuthor = (TextView) findViewById(R.id.view_author);
@@ -95,10 +119,6 @@ public class SinglePostDisplay extends ActionBarActivity {
         mDateTime = (TextView) findViewById(R.id.date_time_single_post_display);
         mReplyTextView = (EditText) footerView.findViewById(R.id.editText_reply);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            objectId = extras.getString("objectId");
-        }
         loadPost();
     }
 
@@ -151,9 +171,10 @@ public class SinglePostDisplay extends ActionBarActivity {
             focusView.requestFocus();
         } else {
 
-            ParseUser currentUser = ParseUser.getCurrentUser();
+            final ParseUser currentUser = ParseUser.getCurrentUser();
             String message = mReplyTextView.getText().toString();
-            ParseObject replyPostObject = new ParseObject("Replies");
+            final String firstName = currentUser.get("firstName").toString();
+            final ParseObject replyPostObject = new ParseObject("Replies");
             replyPostObject.put("firstName", currentUser.get("firstName").toString());
             replyPostObject.put("replyMessage", message);
             replyPostObject.put("replyUser", currentUser);
@@ -163,6 +184,29 @@ public class SinglePostDisplay extends ActionBarActivity {
                 public void done(ParseException e) {
                     if (e == null) {
                         Toast.makeText(mContext, "Reply successfully added", Toast.LENGTH_SHORT).show();
+                        replyChannel = "Reply_"+objectId;
+
+                        if (postObject.getParseObject("user").getObjectId().compareTo(ParseUser.getCurrentUser().getObjectId()) != 0) {
+                            ParseInstallation pi = ParseInstallation.getCurrentInstallation();
+                            pi.put("firstName", currentUser.get("firstName").toString());
+                            ParsePush.subscribeInBackground(replyChannel, new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        Log.d("Success", "subscribing");
+                                    } else
+                                        Log.d("Error", e.getMessage());
+                                }
+                            });
+                            pi.saveEventually();
+                            String tokenModifier  = pi.get("deviceTokenLastModified").toString();
+                            Log.d("ID", tokenModifier);
+                            sendNotification(postChannel,firstName);
+                            sendNotificationWithQuery(replyChannel, firstName, tokenModifier);
+                        } else {
+                            sendNotification(replyChannel,firstName);
+                        }
+
                         Intent i = new Intent(mContext, SinglePostDisplay.class);
                         i.putExtra("objectId", objectId);
                         finish();
@@ -181,9 +225,43 @@ public class SinglePostDisplay extends ActionBarActivity {
         }
     }
 
+    private void sendNotification(String channel, String name) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("channel", channel);
+        map.put("firstName", name);
+        ParseCloud.callFunctionInBackground("pushNotification", map, new FunctionCallback<Object>() {
+            @Override
+            public void done(Object o, ParseException e) {
+                if (e == null)
+                    Log.d("Success", o.toString());
+                else
+                    Log.d("Error", e.getMessage());
+            }
+        });
+    }
+
+    private void sendNotificationWithQuery(String channel, String name, String tokenModifier) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("channel", channel);
+        map.put("firstName", name);
+        map.put("deviceTokenLastModified", tokenModifier);
+        ParseCloud.callFunctionInBackground("pushNotificationWithQuery", map, new FunctionCallback<Object>() {
+            @Override
+            public void done(Object o, ParseException e) {
+                if (e == null)
+                    Log.d("Query Success", o.toString());
+                else
+                    Log.d("Query Error", e.getMessage());
+            }
+        });
+    }
+
     private void populateReplyList() {
-        if (refresh_required)
-            showProgress(true);
+        final ProgressDialog dialog = new ProgressDialog(mContext);
+        dialog.setMessage("Loading...");
+        dialog.setIndeterminate(false);
+        dialog.setCancelable(false);
+        dialog.show();
         // Find all posts
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Replies");
         query.whereEqualTo("parent", objectId);
@@ -191,8 +269,7 @@ public class SinglePostDisplay extends ActionBarActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
-                if (refresh_required)
-                    showProgress(false);
+                dialog.dismiss();
                 if (e == null) {
                     arr_of_reply_objects_to_delete = parseObjects;
                     int length = parseObjects.size();
@@ -232,6 +309,10 @@ public class SinglePostDisplay extends ActionBarActivity {
                     if (replyList != null) {
                         replyList_for_delete = replyList;
                         ArrayAdapter<HashMap<String, String>> adapter = new InteractiveArrayAdapterForReplyList(SinglePostDisplay.this, replyList);
+                        if (lv.getHeaderViewsCount() == 0)
+                            lv.addHeaderView(headerView);
+                        if (lv.getFooterViewsCount() == 0)
+                            lv.addFooterView(footerView);
                         lv.setAdapter(adapter);
                         lv.setOnTouchListener(new ListView.OnTouchListener() {
                             @Override
@@ -261,13 +342,13 @@ public class SinglePostDisplay extends ActionBarActivity {
                         String[] keys = {""};
                         int[] ids = {android.R.id.text1};
                         SimpleAdapter adapter = new SimpleAdapter(mContext, temp, android.R.layout.simple_list_item_1, keys, ids);
+                        if (lv.getHeaderViewsCount() == 0)
+                            lv.addHeaderView(headerView);
+                        if (lv.getFooterViewsCount() == 0)
+                            lv.addFooterView(footerView);
                         lv.setAdapter(adapter);
                         lv.setFooterDividersEnabled(false);
                     }
-                    if (lv.getHeaderViewsCount() == 0)
-                        lv.addHeaderView(headerView);
-                    if (lv.getFooterViewsCount() == 0)
-                        lv.addFooterView(footerView);
                 } else {
                     Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -361,7 +442,10 @@ public class SinglePostDisplay extends ActionBarActivity {
         @Override
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             int id = item.getItemId();
-
+            final ProgressDialog dialog = new ProgressDialog(mContext);
+            dialog.setMessage("Deleting...");
+            dialog.setIndeterminate(false);
+            dialog.setCancelable(false);
             if (id == R.id.delete_sign) {
                 delete_post_counter = 0;
                 if (replyList_for_delete != null) {
@@ -377,9 +461,8 @@ public class SinglePostDisplay extends ActionBarActivity {
                                 .setTitle("Are you sure?")
                                 .setMessage("Once you hit delete there's no coming back.")
                                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                                    public void onClick(final DialogInterface dialog, int id) {
-                                        if (refresh_required)
-                                            showProgress(true);
+                                    public void onClick(final DialogInterface dialogg, int id) {
+                                        dialog.show();
                                         List<ParseObject> tempArr = new ArrayList<>(replyList_for_delete.size());
                                         for (int i = 0; i < replyList_for_delete.size(); i++) {
                                             if (checkList[i]) {
@@ -391,8 +474,7 @@ public class SinglePostDisplay extends ActionBarActivity {
                                         ParseObject.deleteAllInBackground(tempArr, new DeleteCallback() {
                                             @Override
                                             public void done(ParseException e) {
-                                                if (refresh_required)
-                                                    showProgress(false);
+                                                dialog.dismiss();
                                                 if (e == null) {
                                                     if (delete_post_counter > 1)
                                                         Toast.makeText(mContext, (delete_post_counter) + " replies deleted", Toast.LENGTH_SHORT).show();
@@ -423,16 +505,18 @@ public class SinglePostDisplay extends ActionBarActivity {
             }
 
             if (id == R.id.mark_all) {
-                ListView lv = (ListView) findViewById( R.id.list_for_replies);
+                ListView lv = (ListView) findViewById(R.id.list_for_replies);
                 int length = replyList_for_delete.size();
                 if (item.isChecked()) {
                     item.setChecked(false);
                     item.setIcon(android.R.drawable.checkbox_off_background);
                     for (int i = 0; i < length; i++) {
                         LinearLayout childView = (LinearLayout)lv.getChildAt(i);
-                        if (findViewById( R.id.checkBox_reply) != null) {
-                            CheckBox checkBox_for_reply = (CheckBox) childView.findViewById( R.id.checkBox_reply);
-                            checkBox_for_reply.setChecked(false);
+                        if (childView.findViewById(R.id.checkBox_reply) != null) {
+                            CheckBox checkBox_for_reply = (CheckBox) childView.findViewById(R.id.checkBox_reply);
+                            if (checkBox_for_reply.isChecked()) {
+                                checkBox_for_reply.setChecked(false);
+                            }
                         }
                     }
                 } else {
@@ -440,9 +524,11 @@ public class SinglePostDisplay extends ActionBarActivity {
                     item.setIcon(android.R.drawable.checkbox_on_background);
                     for (int i = 0; i < length; i++) {
                         LinearLayout childView = (LinearLayout) lv.getChildAt(i);
-                        if (findViewById( R.id.checkBox_reply) != null) {
-                            CheckBox checkBox_for_reply = (CheckBox) childView.findViewById( R.id.checkBox_reply);
-                            checkBox_for_reply.setChecked(true);
+                        if (childView.findViewById(R.id.checkBox_reply) != null) {
+                            CheckBox checkBox_for_reply = (CheckBox) childView.findViewById(R.id.checkBox_reply);
+                            if (!checkBox_for_reply.isChecked()) {
+                                checkBox_for_reply.setChecked(true);
+                            }
                         }
                     }
                 }
@@ -699,6 +785,7 @@ public class SinglePostDisplay extends ActionBarActivity {
                     mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
             });
+
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.

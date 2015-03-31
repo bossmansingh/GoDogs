@@ -39,5 +39,6 @@
     <string name="title_activity_edit_post">EditPost</string>
     <string name="edit_post">Edit</string>
     <string name="title_refresh">Refresh</string>
+    <string name="title_activity_respond_to_push">RespondToPushActivity</string>
 
 </resources>
