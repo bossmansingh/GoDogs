@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -280,7 +281,7 @@ public class DiscussionForum {
                                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                     public void onClick(final DialogInterface dialog, int id) {
                                         dialogg.show();
-                                        List<ParseObject> tempArr = new ArrayList<>(postList_for_delete.size());
+                                        final List<ParseObject> tempArr = new ArrayList<>(postList_for_delete.size());
                                         for (int i = 0; i < postList_for_delete.size(); i++) {
                                             if (InteractiveArrayAdapter.checkList[i]) {
                                                 zero_post_to_delete = false;
@@ -297,10 +298,34 @@ public class DiscussionForum {
                                                         Toast.makeText(mContext, (delete_post_counter) + " posts deleted", Toast.LENGTH_SHORT).show();
                                                     else
                                                         Toast.makeText(mContext, (delete_post_counter) + " post deleted", Toast.LENGTH_SHORT).show();
-                                                    Intent i = new Intent(mContext, MenuScreen.class);
-                                                    mContext.finish();
-                                                    mContext.startActivity(i);
-                                                    mActionMode.finish();
+                                                    final Intent i = new Intent(mContext, MenuScreen.class);
+                                                    for (int x = 0; x < postList_for_delete.size(); x++) {
+                                                        ParseQuery<ParseObject> query = ParseQuery.getQuery("Replies");
+                                                        query.whereEqualTo("parent", tempArr.get(x));
+                                                        query.findInBackground(new FindCallback<ParseObject>() {
+                                                            @Override
+                                                            public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
+                                                                if (e == null) {
+                                                                    Log.d(parseObjects.size()+" ", "replies found");
+                                                                    ParseObject.deleteAllInBackground(parseObjects, new DeleteCallback() {
+                                                                        @Override
+                                                                        public void done(com.parse.ParseException e) {
+                                                                            if (e != null)
+                                                                                Log.e("Error deleting replies", e.getMessage());
+                                                                            else {
+                                                                                Log.d("No Error", "");
+                                                                                mContext.finish();
+                                                                                mContext.startActivity(i);
+                                                                                mActionMode.finish();
+                                                                            }
+                                                                        }
+                                                                    });
+                                                                } else
+                                                                    Log.e("Error finding replies", e.getMessage());
+                                                            }
+                                                        });
+                                                    }
+
                                                 } else {
                                                     Toast.makeText(mContext, R.string.some_error_occured, Toast.LENGTH_SHORT).show();
                                                 }

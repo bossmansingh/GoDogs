@@ -76,8 +76,7 @@ public class News {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    Intent viewMessage = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(messages.get(position).getLink().toExternalForm()));
+                    Intent viewMessage = new Intent(Intent.ACTION_VIEW, Uri.parse(messages.get(position).getLink().toString()));
                     mContext.startActivity(viewMessage);
                 }
             });

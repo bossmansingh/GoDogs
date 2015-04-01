@@ -40,7 +40,6 @@ import android.widget.Toast;
 
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
-import com.parse.FunctionCallback;
 import com.parse.GetCallback;
 import com.parse.ParseCloud;
 import com.parse.ParseException;
@@ -129,6 +128,14 @@ public class SinglePostDisplay extends ActionBarActivity {
         super.onPostResume();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(mContext, MenuScreen.class);
+        SinglePostDisplay.this.finish();
+        startActivity(i);
+    }
+
     public void loadPost() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
         query.whereEqualTo("objectId", objectId);
@@ -208,7 +215,7 @@ public class SinglePostDisplay extends ActionBarActivity {
                             sendNotification(postChannel,firstName);
                             sendNotificationWithQuery(replyChannel, firstName, piObjectId);
                         } else {
-                            sendNotification(replyChannel,firstName);
+                            sendNotificationWithQuery(replyChannel, firstName, "0");
                         }
 
                         Intent i = new Intent(mContext, SinglePostDisplay.class);
@@ -234,15 +241,7 @@ public class SinglePostDisplay extends ActionBarActivity {
         map.put("channel", channel);
         map.put("firstName", name);
         map.put("objectId", objectId);
-        ParseCloud.callFunctionInBackground("pushNotification", map, new FunctionCallback<Object>() {
-            @Override
-            public void done(Object o, ParseException e) {
-                if (e == null)
-                    Log.d("Success", o.toString());
-                else
-                    Log.d("Error", e.getMessage());
-            }
-        });
+        ParseCloud.callFunctionInBackground("pushNotification", map);
     }
 
     private void sendNotificationWithQuery(String channel, String name, String piObjectId) {
@@ -251,15 +250,7 @@ public class SinglePostDisplay extends ActionBarActivity {
         map.put("firstName", name);
         map.put("piObjectId", piObjectId);
         map.put("objectId", objectId);
-        ParseCloud.callFunctionInBackground("pushNotificationWithQuery", map, new FunctionCallback<Object>() {
-            @Override
-            public void done(Object o, ParseException e) {
-                if (e == null)
-                    Log.d("Query Success", o.toString());
-                else
-                    Log.d("Query Error", e.getMessage());
-            }
-        });
+        ParseCloud.callFunctionInBackground("pushNotificationWithQuery", map);
     }
 
     private void populateReplyList() {
@@ -377,7 +368,7 @@ public class SinglePostDisplay extends ActionBarActivity {
             this.context = context;
             this.list = list;
             checkList = new Boolean[list.size()];
-            arr_for_checkbox_pos = new int[list.size()+1];
+            arr_for_checkbox_pos = new int[list.size()*4];
             for(int i = 0; i < list.size(); i++) {
                 checkList[i] = false;
                 arr_for_checkbox_pos[i] = -1;
@@ -392,8 +383,6 @@ public class SinglePostDisplay extends ActionBarActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             View single_reply_for_list_view ;
-            for(int i = 0; i < list.size(); i++)
-                Log.d("arr["+i+"] = ",arr_for_checkbox_pos[i]+"");
             if (convertView == null) {
                 LayoutInflater inflator = context.getLayoutInflater();
                 single_reply_for_list_view = inflator.inflate(R.layout.single_reply_post, null);
@@ -657,6 +646,7 @@ public class SinglePostDisplay extends ActionBarActivity {
                                                     if (refresh_required)
                                                         showProgress(false);
                                                     if (e == null) {
+                                                        ParsePush.unsubscribeInBackground(postChannel);
                                                         Intent i = new Intent(mContext, MenuScreen.class);
                                                         finish();
                                                         startActivity(i);
