@@ -84,6 +84,7 @@ public class SinglePostDisplay extends ActionBarActivity {
     private String postChannel;
     private String replyChannel;
     private ParseObject postObject;
+    private int[] arr_for_checkbox_pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -368,6 +369,7 @@ public class SinglePostDisplay extends ActionBarActivity {
         private final Activity context;
         private ViewHolder holder;
         private int j = 0;
+        private int index = 0;
 
         public InteractiveArrayAdapterForReplyList(Activity context,
                                                    ArrayList<HashMap<String, String>> list) {
@@ -375,8 +377,11 @@ public class SinglePostDisplay extends ActionBarActivity {
             this.context = context;
             this.list = list;
             checkList = new Boolean[list.size()];
-            for(int i = 0; i < list.size(); i++)
+            arr_for_checkbox_pos = new int[list.size()+1];
+            for(int i = 0; i < list.size(); i++) {
                 checkList[i] = false;
+                arr_for_checkbox_pos[i] = -1;
+            }
         }
 
         class ViewHolder {
@@ -387,6 +392,8 @@ public class SinglePostDisplay extends ActionBarActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             View single_reply_for_list_view ;
+            for(int i = 0; i < list.size(); i++)
+                Log.d("arr["+i+"] = ",arr_for_checkbox_pos[i]+"");
             if (convertView == null) {
                 LayoutInflater inflator = context.getLayoutInflater();
                 single_reply_for_list_view = inflator.inflate(R.layout.single_reply_post, null);
@@ -398,6 +405,8 @@ public class SinglePostDisplay extends ActionBarActivity {
 
                 if (list.get(position).get("replyUser").compareTo(ParseUser.getCurrentUser().getObjectId()) == 0) {
                     viewHolder.checkbox.setVisibility(View.VISIBLE);
+                    arr_for_checkbox_pos[index] = position;
+                    index++;
                     viewHolder.checkbox
                             .setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                 @Override
@@ -523,23 +532,32 @@ public class SinglePostDisplay extends ActionBarActivity {
                     item.setChecked(false);
                     item.setIcon(android.R.drawable.checkbox_off_background);
                     for (int i = 0; i <= length; i++) {
-                        LinearLayout childView = (LinearLayout)lv.getChildAt(i);
-                        if (childView.findViewById(R.id.checkBox_reply) != null) {
-                            CheckBox checkBox_for_reply = (CheckBox) childView.findViewById(R.id.checkBox_reply);
-                            if (checkBox_for_reply.isChecked()) {
-                                checkBox_for_reply.setChecked(false);
-                            }
-                        }
+                        Log.d("i = ", i+"");
+                        if (arr_for_checkbox_pos[i] != -1) {
+                           LinearLayout childView = (LinearLayout)lv.getChildAt(arr_for_checkbox_pos[i]+1);
+                           if (childView.findViewById(R.id.checkBox_reply) != null) {
+                               CheckBox checkBox_for_reply = (CheckBox) childView.findViewById(R.id.checkBox_reply);
+                               if (checkBox_for_reply.isChecked()) {
+                                   checkBox_for_reply.setChecked(false);
+                               }
+                           } else {
+                               Log.d("Break at ", i+"");
+                               break;
+                           }
+                       }
                     }
                 } else {
                     item.setChecked(true);
                     item.setIcon(android.R.drawable.checkbox_on_background);
                     for (int i = 0; i <= length; i++) {
-                        LinearLayout childView = (LinearLayout) lv.getChildAt(i);
-                        if (childView.findViewById(R.id.checkBox_reply) != null) {
+                        Log.d("i = ", i+"");
+                        if (arr_for_checkbox_pos[i] != -1) {
+                            LinearLayout childView = (LinearLayout) lv.getChildAt(arr_for_checkbox_pos[i]+1);
                             CheckBox checkBox_for_reply = (CheckBox) childView.findViewById(R.id.checkBox_reply);
-                            if (!checkBox_for_reply.isChecked()) {
-                                checkBox_for_reply.setChecked(true);
+                            if (checkBox_for_reply != null) {
+                                if (!checkBox_for_reply.isChecked()) {
+                                    checkBox_for_reply.setChecked(true);
+                                }
                             }
                         }
                     }
@@ -559,6 +577,7 @@ public class SinglePostDisplay extends ActionBarActivity {
         @Override
         public void onDestroyActionMode(ActionMode mode) {
             mActionMode = null;
+            populateReplyList();
         }
 
         @Override
