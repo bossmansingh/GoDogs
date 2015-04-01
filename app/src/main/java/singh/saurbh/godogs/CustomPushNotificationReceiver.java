@@ -18,7 +18,7 @@ import org.json.JSONObject;
 /**
  * Created by ${SAURBAH} on ${10/29/14}.
  */
-public class TestPushNotification extends ParsePushBroadcastReceiver {
+public class CustomPushNotificationReceiver extends ParsePushBroadcastReceiver {
 
     protected static String objectId;
     public static int numMessages = 0;
@@ -73,19 +73,17 @@ public class TestPushNotification extends ParsePushBroadcastReceiver {
     @Override
     protected void onPushOpen(Context context, Intent intent) {
 //        super.onPushOpen(context, intent);
-        ParseAnalytics.trackAppOpenedInBackground(intent);
 
+        ParseAnalytics.trackAppOpenedInBackground(intent);
         numMessages = 0;
-        Log.d(TAG, "onPushOpen " + numMessages);
 
         // this is the activity that we will send the user, change this to anything you want
         resultIntent = new Intent(context, SinglePostDisplay.class);
         resultIntent.putExtra("objectId", objectId);
         resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(resultIntent);
-//        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        mBuilder = new NotificationCompat.Builder(context);
-//        mBuilder.setContentIntent(resultPendingIntent);
+        if (context != null) {
+            context.startActivity(resultIntent);
+        }
     }
 
     @Override
