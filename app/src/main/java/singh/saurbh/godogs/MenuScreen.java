@@ -3,7 +3,6 @@ package singh.saurbh.godogs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -67,25 +66,12 @@ public class MenuScreen extends ActionBarActivity
 
         mDiscussionForum = new DiscussionForum(this);
         mNews = new News(this);
-        // Search Intent
-        handleIntent(getIntent());
+
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-//        if (mPlaceHolderFragment.isNetworkAvailable())
-//            mDiscussionForum.startLoadCommentsTask();
-//        else {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext, android.R.style.Theme_Holo_Dialog));
-//            builder.setIcon(android.R.drawable.ic_dialog_alert)
-//                    .setTitle(R.string.check_network)
-//                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                        public void onClick(DialogInterface dialog, int id) {
-//
-//                        }
-//                    }).show();
-//        }
     }
 
     @Override
@@ -387,7 +373,6 @@ public class MenuScreen extends ActionBarActivity
                     break;
 
                 case 2:
-//                    searchView.setVisibility(View.INVISIBLE);
                     rootView = inflater.inflate(R.layout.activity_news_feed, container, false);
                     mFragmentNumber = 2;
                     if (isNetworkAvailable())
@@ -423,20 +408,5 @@ public class MenuScreen extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
 
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        setIntent(intent);
-        handleIntent(intent);
-    }
-
-    private void handleIntent(Intent intent) {
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-
-            //use the query to search your data somehow
-//            mDiscussionForum.searchPostTask(query);
-        }
     }
 }

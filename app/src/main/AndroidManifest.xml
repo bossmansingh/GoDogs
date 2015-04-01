@@ -35,7 +35,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -86,17 +85,31 @@
             android:label="@string/title_activity_edit_post"
             android:screenOrientation="portrait" >
         </activity>
-        <!--<activity-->
-            <!--android:name=".RespondToPushActivity"-->
-            <!--android:label="@string/title_activity_respond_to_push"-->
-            <!--android:launchMode="singleTop">-->
-        <!--</activity>-->
 
         <!-- Permissions required for parse.com notifications -->
         <service android:name="com.parse.PushService" />
+        <receiver android:name="com.parse.ParseBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <!--<receiver android:name="singh.saurbh.godogs.ReceiveNotification"-->
+            <!--android:exported="false"-->
+            <!--android:enabled="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="singh.saurbh.godogs.MESSAGE" />-->
+                <!--<action android:name="com.parse.push.intent.RECEIVE" />-->
+                <!--<action android:name="com.parse.push.intent.DELETE" />-->
+                <!--<action android:name="com.parse.push.intent.OPEN" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
         <receiver
-            android:name="singh.saurbh.godogs.ReceiveNotification"
-            android:exported="false" >
+            android:name=".TestPushNotification"
+            android:exported="false"
+            android:enabled="true">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
@@ -115,16 +128,6 @@
                 <category android:name="singh.saurbh.godogs" />
             </intent-filter>
         </receiver>
-
-        <!--<receiver-->
-            <!--android:name=".TestBroadcastReceiver"-->
-            <!--android:exported="false" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="singh.saurbh.godogs.TestPushAction" />-->
-                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
-                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
         <!-- End parse.com requirements -->
 
         <meta-data

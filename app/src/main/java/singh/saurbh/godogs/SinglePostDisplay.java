@@ -95,6 +95,7 @@ public class SinglePostDisplay extends ActionBarActivity {
             objectId = extras.getString("objectId");
         }
         postChannel = "Post_"+objectId;
+        replyChannel = "Reply_"+objectId;
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Post");
         query.getInBackground(objectId, new GetCallback<ParseObject>() {
@@ -106,8 +107,8 @@ public class SinglePostDisplay extends ActionBarActivity {
             }
         });
 
-        footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.footer, null, false);
-        headerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate( R.layout.header, null, false);
+        footerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer, null, false);
+        headerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.header, null, false);
 
         mSinglePostDisplayView = findViewById(R.id.container_for_title_name_date);
         mProgressView = findViewById(R.id.progressBar_for_single_post);
@@ -120,6 +121,11 @@ public class SinglePostDisplay extends ActionBarActivity {
         mReplyTextView = (EditText) footerView.findViewById(R.id.editText_reply);
 
         loadPost();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
     }
 
     public void loadPost() {
@@ -184,8 +190,6 @@ public class SinglePostDisplay extends ActionBarActivity {
                 public void done(ParseException e) {
                     if (e == null) {
                         Toast.makeText(mContext, "Reply successfully added", Toast.LENGTH_SHORT).show();
-                        replyChannel = "Reply_"+objectId;
-
                         if (postObject.getParseObject("user").getObjectId().compareTo(ParseUser.getCurrentUser().getObjectId()) != 0) {
                             ParseInstallation pi = ParseInstallation.getCurrentInstallation();
                             pi.put("firstName", currentUser.get("firstName").toString());
@@ -199,10 +203,9 @@ public class SinglePostDisplay extends ActionBarActivity {
                                 }
                             });
                             pi.saveEventually();
-                            String tokenModifier  = pi.get("deviceTokenLastModified").toString();
-                            Log.d("ID", tokenModifier);
+                            String piObjectId  = pi.getObjectId();
                             sendNotification(postChannel,firstName);
-                            sendNotificationWithQuery(replyChannel, firstName, tokenModifier);
+                            sendNotificationWithQuery(replyChannel, firstName, piObjectId);
                         } else {
                             sendNotification(replyChannel,firstName);
                         }
@@ -229,6 +232,7 @@ public class SinglePostDisplay extends ActionBarActivity {
         HashMap<String, Object> map = new HashMap<>();
         map.put("channel", channel);
         map.put("firstName", name);
+        map.put("objectId", objectId);
         ParseCloud.callFunctionInBackground("pushNotification", map, new FunctionCallback<Object>() {
             @Override
             public void done(Object o, ParseException e) {
@@ -240,11 +244,12 @@ public class SinglePostDisplay extends ActionBarActivity {
         });
     }
 
-    private void sendNotificationWithQuery(String channel, String name, String tokenModifier) {
+    private void sendNotificationWithQuery(String channel, String name, String piObjectId) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("channel", channel);
         map.put("firstName", name);
-        map.put("deviceTokenLastModified", tokenModifier);
+        map.put("piObjectId", piObjectId);
+        map.put("objectId", objectId);
         ParseCloud.callFunctionInBackground("pushNotificationWithQuery", map, new FunctionCallback<Object>() {
             @Override
             public void done(Object o, ParseException e) {
@@ -475,7 +480,14 @@ public class SinglePostDisplay extends ActionBarActivity {
                                             @Override
                                             public void done(ParseException e) {
                                                 dialog.dismiss();
+                                                int temp = 0;
+                                                for(int i = 0; i < replyList_for_delete.size(); i++) {
+                                                    if (checkList[i])
+                                                        temp++;
+                                                }
                                                 if (e == null) {
+                                                    if (delete_post_counter == temp)
+                                                        ParsePush.unsubscribeInBackground(replyChannel);
                                                     if (delete_post_counter > 1)
                                                         Toast.makeText(mContext, (delete_post_counter) + " replies deleted", Toast.LENGTH_SHORT).show();
                                                     else
@@ -510,7 +522,7 @@ public class SinglePostDisplay extends ActionBarActivity {
                 if (item.isChecked()) {
                     item.setChecked(false);
                     item.setIcon(android.R.drawable.checkbox_off_background);
-                    for (int i = 0; i < length; i++) {
+                    for (int i = 0; i <= length; i++) {
                         LinearLayout childView = (LinearLayout)lv.getChildAt(i);
                         if (childView.findViewById(R.id.checkBox_reply) != null) {
                             CheckBox checkBox_for_reply = (CheckBox) childView.findViewById(R.id.checkBox_reply);
@@ -522,7 +534,7 @@ public class SinglePostDisplay extends ActionBarActivity {
                 } else {
                     item.setChecked(true);
                     item.setIcon(android.R.drawable.checkbox_on_background);
-                    for (int i = 0; i < length; i++) {
+                    for (int i = 0; i <= length; i++) {
                         LinearLayout childView = (LinearLayout) lv.getChildAt(i);
                         if (childView.findViewById(R.id.checkBox_reply) != null) {
                             CheckBox checkBox_for_reply = (CheckBox) childView.findViewById(R.id.checkBox_reply);
