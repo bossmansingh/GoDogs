@@ -72,6 +72,8 @@ public class MenuScreen extends ActionBarActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
+        if (ParseUser.getCurrentUser() == null)
+            MenuScreen.this.finish();
     }
 
     @Override
