@@ -19,7 +19,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.parse.LogInCallback;
-import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
@@ -46,7 +45,6 @@ public class LoginActivity extends ActionBarActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.addPost_progressBar);
 
-        ParseAnalytics.trackAppOpenedInBackground(getIntent());
     }
 
     private boolean isNetworkAvailable() {

@@ -814,5 +814,4 @@ public class SinglePostDisplay extends ActionBarActivity {
             mSinglePostDisplayView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
 }
