@@ -34,11 +34,12 @@
     <string name="delete_post">Delete</string>
     <string name="title_for_delete">Select to delete</string>
     <string name="list_empty_alert_text">It seems there are no post to display</string>
-    <string name="emai_not_verified">Email not verified!!</string>
+    <string name="email_not_verified">Email is not verified!!</string>
     <string name="mark_all">Mark all</string>
     <string name="title_activity_edit_post">EditPost</string>
     <string name="edit_post">Edit</string>
     <string name="title_refresh">Refresh</string>
     <string name="title_activity_respond_to_push">RespondToPushActivity</string>
+    <string name="title_activity_spinner_test">SpinnerTest</string>
 
 </resources>

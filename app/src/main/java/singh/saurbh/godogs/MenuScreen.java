@@ -46,6 +46,7 @@ public class MenuScreen extends ActionBarActivity
 
     private DiscussionForum mDiscussionForum = null;
     private News mNews = null;
+    private RoadMapCreation mRoadMapCreation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +80,8 @@ public class MenuScreen extends ActionBarActivity
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
-        MenuScreen.this.finish();
         super.onBackPressed();
+        MenuScreen.this.finish();
     }
 
     @Override
@@ -211,6 +212,7 @@ public class MenuScreen extends ActionBarActivity
             dialog.show();
             ParseUser.logOut();
             ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+            dialog.dismiss();
             finish();
             return true;
         }
@@ -296,7 +298,6 @@ public class MenuScreen extends ActionBarActivity
             if (mFragmentNumber == 2) {
                 layout_for_news.buildLayer();
                 if (mPlaceHolderFragment.isNetworkAvailable()) {
-//                    searchView.setVisibility(View.INVISIBLE);
                     mNews.startLoadNewsTask();
                 }
                 else {
@@ -393,8 +394,9 @@ public class MenuScreen extends ActionBarActivity
 
                 case 3:
                     mFragmentNumber = 3;
-//                    Intent intent = new Intent(mContext, RespondToPushActivity.class);
-//                    startActivity(intent);
+                    rootView = inflater.inflate(R.layout.roadmap_layout, container, false);
+                    mRoadMapCreation = new RoadMapCreation(getActivity(), rootView);
+                    mRoadMapCreation.createRoadMap();
                     break;
 
                 default:

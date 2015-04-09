@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -42,14 +41,6 @@ public class ForgotPassword extends ActionBarActivity {
         mEmailView = (AutoCompleteTextView) findViewById(R.id.password_recovery_email);
         mRecoverPasswordFormView = findViewById(R.id.recover_password_form);
         mProgressView = findViewById(R.id.login_progress_recover_password);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent i = new Intent(mContext, LoginActivity.class);
-        finish();
-        startActivity(i);
     }
 
     private boolean isNetworkAvailable() {
@@ -100,18 +91,8 @@ public class ForgotPassword extends ActionBarActivity {
                                 @Override
                                 public void done(ParseException e) {
                                     if (e == null) {
-                                        AlertDialog.Builder user_not_found_error = new AlertDialog.Builder(new ContextThemeWrapper(mContext, android.R.style.Theme_Holo_Dialog));
-                                        user_not_found_error.setTitle(R.string.password_reset_link_sent)
-                                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        Intent i = new Intent(mContext, LoginActivity.class);
-                                                        finish();
-                                                        startActivity(i);
-                                                    }
-                                                }).show();
-
+                                        Toast.makeText(mContext, R.string.password_reset_link_sent, Toast.LENGTH_LONG).show();
+                                        ForgotPassword.this.finish();
                                     } else {
                                         Toast.makeText(mContext, "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                         Log.e("ERROR: ", e.getMessage());

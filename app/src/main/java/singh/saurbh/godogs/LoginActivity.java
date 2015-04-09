@@ -111,11 +111,10 @@ public class LoginActivity extends ActionBarActivity {
                             if (parseUser.getBoolean("emailVerified")) {
                                 Intent i = new Intent(mContext, MenuScreen.class);
                                 startActivity(i);
-                                // Hooray! The user is logged in.
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext, android.R.style.Theme_Holo_Dialog));
                                 builder.setIcon(android.R.drawable.ic_dialog_alert)
-                                        .setTitle(getString(R.string.emai_not_verified))
+                                        .setTitle(getString(R.string.email_not_verified))
                                         .setMessage("Please verify your email first")
                                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
@@ -159,13 +158,11 @@ public class LoginActivity extends ActionBarActivity {
 
     public void signUpUser(View v) {
         Intent i = new Intent(mContext, SignUpActivity.class);
-        finish();
         startActivity(i);
     }
 
     public void forgotPasswordTask(View v) {
         Intent i = new Intent(mContext, ForgotPassword.class);
-        finish();
         startActivity(i);
     }
 
@@ -211,7 +208,6 @@ public class LoginActivity extends ActionBarActivity {
         super.onResume();
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null && currentUser.getBoolean("emailVerified")) {
-            // do stuff with the user
             Intent i = new Intent(mContext, MenuScreen.class);
             startActivity(i);
         }

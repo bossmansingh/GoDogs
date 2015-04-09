@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="course_interest_array">
+        <item>Select your major</item>
+        <item>Art</item>
+        <item>Biology</item>
+        <item>Business</item>
+        <item>Computer Science</item>
+        <item>Electrical Engineering</item>
+        <item>French</item>
+        <item>Geology</item>
+        <item>Mathematics</item>
+        <item>Physics</item>
+    </string-array>
+</resources>

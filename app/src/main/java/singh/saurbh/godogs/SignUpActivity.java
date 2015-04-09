@@ -6,7 +6,6 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -56,14 +55,6 @@ public class SignUpActivity extends ActionBarActivity {
 
         mLoginFormView = findViewById(R.id.login_form_signUp);
         mProgressView = findViewById(R.id.login_progress_signUp);
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent i = new Intent(mContext, LoginActivity.class);
-        finish();
-        startActivity(i);
     }
 
     private boolean isNetworkAvailable() {
@@ -173,9 +164,8 @@ public class SignUpActivity extends ActionBarActivity {
                         showProgress(false);
                         if (e == null) {
                             Toast.makeText(mContext, R.string.account_activation_link_sent, Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(mContext, LoginActivity.class);
-                            finish();
-                            startActivity(i);
+                            SignUpActivity.this.finish();
+
                         } else {
                             AlertDialog.Builder d2 = new AlertDialog.Builder(new ContextThemeWrapper(mContext, android.R.style.Theme_Holo_Dialog));
                             d2.setTitle(R.string.something_went_wrong)

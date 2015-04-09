@@ -697,6 +697,7 @@ public class SinglePostDisplay extends ActionBarActivity {
             dialog.show();
             ParseUser.logOut();
             ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+            dialog.dismiss();
             finish();
             Intent i = new Intent(mContext, LoginActivity.class);
             startActivity(i);

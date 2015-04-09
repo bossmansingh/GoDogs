@@ -109,8 +109,8 @@ public class AddPost extends ActionBarActivity {
                     ParsePush.subscribeInBackground(channel);
                     pi.saveEventually();
                     Intent i = new Intent(mContext, MenuScreen.class);
-                    startActivity(i);
                     finish();
+                    startActivity(i);
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(mContext, android.R.style.Theme_Holo_Dialog));
                     builder.setTitle(R.string.error_message_posting_data)

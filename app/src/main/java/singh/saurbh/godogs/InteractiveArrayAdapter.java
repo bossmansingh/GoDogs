@@ -74,9 +74,9 @@ public class InteractiveArrayAdapter extends ArrayAdapter<HashMap<String, String
         }
 
         holder = (ViewHolder) single_post_for_list_view.getTag();
-        holder.title.setText(list.get(position).get("title").toString());
-        holder.first_name.setText(list.get(position).get("firstName").toString());
-        holder.published_date.setText(list.get(position).get("createdAt").toString());
+        holder.title.setText(list.get(position).get("title"));
+        holder.first_name.setText(list.get(position).get("firstName"));
+        holder.published_date.setText(list.get(position).get("createdAt"));
 
         return single_post_for_list_view;
     }

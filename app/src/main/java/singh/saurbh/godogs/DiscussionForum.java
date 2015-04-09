@@ -104,13 +104,14 @@ public class DiscussionForum {
                 ee.printStackTrace();
             }
             SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy   h:mm a");
-            String dateWithoutTime = sdf.format(d1);
-            posted_on = dateWithoutTime;
+            posted_on = sdf.format(d1);
             HashMap<String, String> dataList = new HashMap<>();
             dataList.put("firstName", firstName);
             dataList.put("title", title);
             dataList.put("createdAt", posted_on);
-            postList.add(dataList);
+            if (postList != null) {
+                postList.add(dataList);
+            }
         }
 
         View footerView = ((LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.footer_for_discussion_forum_list, null, false);

@@ -20,8 +20,8 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="singh.saurbh.godogs.permission.C2D_MESSAGE" />
-    <!-- End parse permissions -->
 
+    <!-- End parse permissions -->
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
@@ -35,6 +35,7 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -88,7 +89,8 @@
 
         <!-- Permissions required for parse.com notifications -->
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParseBroadcastReceiver">
+
+        <receiver android:name="com.parse.ParseBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.USER_PRESENT" />
@@ -96,8 +98,8 @@
         </receiver>
         <receiver
             android:name=".CustomPushNotificationReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
@@ -110,9 +112,11 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="singh.saurbh.godogs" />
             </intent-filter>
         </receiver>
+
         <meta-data
             android:name="com.parse.push.notification_icon"
             android:resource="@drawable/push_icon" />
