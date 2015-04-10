@@ -34,11 +34,25 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/course_interest_listView"
+            android:id="@android:id/list"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:visibility="gone" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Generate RoadMap"
+            android:id="@+id/generate_roadmap_button"
+            android:background="#e3960606"
+            android:textColor="#c9ffffff"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"
+            android:nestedScrollingEnabled="false"
+            android:clickable="true" />
     </LinearLayout>
 
 
