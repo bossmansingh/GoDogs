@@ -3,6 +3,10 @@ package singh.saurbh.godogs;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +26,9 @@ import com.parse.ParseQuery;
 
 import org.json.JSONException;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +37,7 @@ import java.util.Random;
 /**
  * Created by ${SAURBAH} on ${10/29/14}.
  */
-public class RoadMapCreation {
+public class RoadMapCreation implements Runnable{
 
     private Activity mContext;
     private View view;
@@ -61,13 +68,15 @@ public class RoadMapCreation {
     private TextView headingTextView;
     private Button generate_roadmap_button;
     private Spinner spinner;
+    private Intent mShareIntent;
+    private FileOutputStream os;;
 
     public RoadMapCreation(Activity mContext, View view) {
         this.mContext = mContext;
         this.view = view;
     }
 
-    public void createRoadMap () {
+    public void startRoadMapCreation() {
         spinner = (Spinner) view.findViewById(R.id.spinner_for_roadmap);
         spinner.setVisibility(View.VISIBLE);
 
@@ -258,6 +267,74 @@ public class RoadMapCreation {
         generate_roadmap_button.setText("Create again");
         generate_roadmap_button.setVisibility(View.VISIBLE);
     }
+
+    public void sendPDFasMail() {
+        generate_roadmap_button.setVisibility(View.INVISIBLE);
+        run();
+    }
+
+    @Override
+    public void run() {
+        Log.d("TAG", "Starting send PDF...");
+        // Create a shiny new (but blank) PDF document in memory
+        PdfDocument document = new PdfDocument();
+
+        int width = mContext.getApplicationContext().getResources().getDisplayMetrics().widthPixels;
+        int height = mContext.getApplicationContext().getResources().getDisplayMetrics().heightPixels;
+
+        // crate a page description
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(width, height, 1).create();
+
+        // create a new page from the PageInfo
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        // repaint the user's text into the page
+        View layout = view.findViewById(R.id.layout_for_roadmap_list);
+        layout.draw(page.getCanvas());
+
+        // do final processing of the page
+        document.finishPage(page);
+
+        try {
+            File pdfDirPath = new File(mContext.getFilesDir(), "pdfs");
+            pdfDirPath.mkdirs();
+            File file = new File(pdfDirPath, "pdfsend.pdf");
+            Uri contentUri = FileProvider.getUriForFile(mContext, "singh.saurbh.fileprovider", file);
+            os = new FileOutputStream(file);
+            document.writeTo(os);
+            document.close();
+            os.close();
+
+            shareDocument(contentUri);
+        } catch (IOException e) {
+            throw new RuntimeException("Error generating file", e);
+        }
+
+//        Intent mShareIntent = new Intent();
+//        mShareIntent.setAction(Intent.ACTION_SEND);
+//        mShareIntent.setType("application/pdf");
+//        // Assuming it may go via eMail:
+//        mShareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+//                "Here is a PDF from PdfSend");
+//        mShareIntent.putExtra(
+//                getClass().getPackage().getName() + "." + "SendPDF",
+//                os.toByteArray());
+//        mContext.startActivity(mShareIntent);
+
+    }
+    private void shareDocument(Uri uri) {
+        mShareIntent = new Intent();
+        mShareIntent.setAction(Intent.ACTION_SEND);
+        mShareIntent.setType("application/pdf");
+        // Assuming it may go via eMail:
+        mShareIntent.putExtra(Intent.EXTRA_SUBJECT, "Here is a PDF from PdfSend");
+        // Attach the PDf as a Uri, since Android can't take it as bytes yet.
+        mShareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        mContext.startActivity(mShareIntent);
+        return;
+    }
+
+
 
     public class CustomSpinnerAdapter extends ArrayAdapter<String>{
 

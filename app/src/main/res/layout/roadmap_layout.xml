@@ -17,7 +17,8 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:id="@+id/layout_for_roadmap_list">
 
         <TextView
             android:layout_width="wrap_content"

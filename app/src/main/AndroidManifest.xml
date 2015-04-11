@@ -122,6 +122,16 @@
             android:resource="@drawable/push_icon" />
         <!-- End parse.com requirements -->
 
+        <!-- FileProvider - a ContentProvider for making the image file securely available to the other end -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="singh.saurbh.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

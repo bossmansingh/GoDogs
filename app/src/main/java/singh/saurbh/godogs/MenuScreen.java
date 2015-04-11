@@ -177,6 +177,9 @@ public class MenuScreen extends ActionBarActivity
             if (mFragmentNumber == 2)
                 getMenuInflater().inflate(R.menu.menu_news, menu);
 
+            if (mFragmentNumber == 3)
+                getMenuInflater().inflate(R.menu.menu_roadmap, menu);
+
             // We should save our menu so we can use it to reset our updater.
             mMenu = menu;
 
@@ -229,6 +232,10 @@ public class MenuScreen extends ActionBarActivity
             return true;
         }
 
+        if (item.getItemId() == R.id.action_sendAsPDF) {
+            mRoadMapCreation.sendPDFasMail();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -279,7 +286,7 @@ public class MenuScreen extends ActionBarActivity
         protected void onPostExecute(Void nope) {
 
             if (mFragmentNumber == 1) {
-                layout_for_discussion_forum.buildLayer();
+//                layout_for_discussion_forum.buildLayer();
                 if (mPlaceHolderFragment.isNetworkAvailable())
                     mDiscussionForum.startLoadCommentsTask();
                 else {
@@ -296,7 +303,7 @@ public class MenuScreen extends ActionBarActivity
             }
 
             if (mFragmentNumber == 2) {
-                layout_for_news.buildLayer();
+//                layout_for_news.buildLayer();
                 if (mPlaceHolderFragment.isNetworkAvailable()) {
                     mNews.startLoadNewsTask();
                 }
@@ -396,7 +403,7 @@ public class MenuScreen extends ActionBarActivity
                     mFragmentNumber = 3;
                     rootView = inflater.inflate(R.layout.roadmap_layout, container, false);
                     mRoadMapCreation = new RoadMapCreation(getActivity(), rootView);
-                    mRoadMapCreation.createRoadMap();
+                    mRoadMapCreation.startRoadMapCreation();
                     break;
 
                 default:
