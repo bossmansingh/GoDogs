@@ -10,7 +10,7 @@
     <string name="error_message_posting_data">There was an error in posting some data</string>
     <string name="error_message_deleting_post">Some error occurred</string>
     <string name="title_section2">Top News</string>
-    <string name="title_section3">Study Room</string>
+    <string name="title_section3">Virtual RoadMap</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
@@ -24,8 +24,7 @@
     <string name="account_activation_link_sent">Account activation link sent to your email</string>
     <string name="some_error_occured">Err! Some error occurred</string>
     <string name="enter_correct_code">Wrong code! Please check and enter again</string>
-    <string name="title_activity_dialog_enter_code">Enter Code</string>
-    <string name="domain">http://10.0.0.15/android_database_connection/</string>
+    <string name="title_activity_dialog_enter_code">Enter Code</string>\
     <string name="title_activity_add_post">Add Post</string>
     <string name="title_activity_single_post_display">Single Post Display</string>
     <string name="field_is_required">Field is required</string>

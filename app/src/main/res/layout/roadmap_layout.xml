@@ -10,12 +10,13 @@
         android:dropDownWidth="wrap_content"
         android:dropDownSelector="@android:color/holo_orange_dark"
         android:spinnerMode="dropdown"
-        android:layout_margin="15dp" />
+        android:layout_margin="15dp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dp">
 
         <TextView
@@ -31,6 +32,19 @@
             android:layout_gravity="left"
             android:visibility="gone" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Fall 2015"
+            android:id="@+id/title_roadmap"
+            android:textColor="@android:color/holo_orange_dark"
+            android:typeface="serif"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="15dp"
+            android:visibility="gone" />
+
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,6 +53,15 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:visibility="gone" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/roadmap_display_listView"
+            android:visibility="gone"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp" />
 
         <Button
             android:layout_width="match_parent"
@@ -53,6 +76,7 @@
             android:visibility="gone"
             android:nestedScrollingEnabled="false"
             android:clickable="true" />
+
     </LinearLayout>
 
 

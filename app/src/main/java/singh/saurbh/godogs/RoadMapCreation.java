@@ -60,6 +60,7 @@ public class RoadMapCreation {
     private ListView lv;
     private TextView headingTextView;
     private Button generate_roadmap_button;
+    private Spinner spinner;
 
     public RoadMapCreation(Activity mContext, View view) {
         this.mContext = mContext;
@@ -67,7 +68,8 @@ public class RoadMapCreation {
     }
 
     public void createRoadMap () {
-        Spinner spinner = (Spinner) view.findViewById(R.id.spinner_for_roadmap);
+        spinner = (Spinner) view.findViewById(R.id.spinner_for_roadmap);
+        spinner.setVisibility(View.VISIBLE);
 
         lv = (ListView)view.findViewById(android.R.id.list);
         headingTextView = (TextView) view.findViewById(R.id.heading_text_for_interest_list);
@@ -110,15 +112,20 @@ public class RoadMapCreation {
             mainQuery.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> parseObjects, com.parse.ParseException e) {
-//                    dialog.dismiss();
                     if (e == null) {
                         int index = 0;
-                        for (ParseObject parseObject: parseObjects) {
+
+                        ArrayList<Integer> arrayList = new ArrayList<>(parseObjects.size());
+                        for (int i = 0; i < parseObjects.size(); i++)
+                            arrayList.add(i);
+                        Collections.shuffle(arrayList);
+
+                        for (ParseObject parseObject : parseObjects) {
                             int x = random.nextInt(parseObject.getJSONArray("courses").length());
                             try {
-                                Log.d("TAG", "Retrieved --> " + parseObject.getJSONArray("courses").getString(x));
+                                Log.d("TAG", "Retrieved --> " + parseObjects.get(arrayList.get(index)).getJSONArray("courses").getString(x));
                                 if (index < 4) {
-                                    arr_to_store_result_of_course_list[index] = parseObject.getJSONArray("courses").getString(x);
+                                    arr_to_store_result_of_course_list[index] = parseObjects.get(arrayList.get(index)).getJSONArray("courses").getString(x);
                                     index++;
                                 }
                             } catch (JSONException e1) {
@@ -126,7 +133,7 @@ public class RoadMapCreation {
                             }
                         }
 
-                        for(int i = 0; i < 4; i++) {
+                        for (int i = 0; i < 4; i++) {
                             if (arr_to_store_result_of_course_list[i] == null)
                                 index_arr[i] = i;
                             else
@@ -142,35 +149,41 @@ public class RoadMapCreation {
 
                                 queries1.add(query1);
                             }
-                            ParseQuery<ParseObject> mainQuery1 = ParseQuery.or(queries1);
-                            mainQuery1.findInBackground(new FindCallback<ParseObject>() {
-                                @Override
-                                public void done(List<ParseObject> list, ParseException e) {
-                                    dialog.dismiss();
-                                    if (e == null) {
-                                        int index = 0;
-                                        for (ParseObject parseObject: list) {
-                                            int x = random.nextInt(parseObject.getJSONArray("courses").length());
-                                            try {
-                                                if (index < 4) {
-                                                    if (index_arr[index] != 404)
-                                                        arr_to_store_result_of_course_list[index_arr[index]] = parseObject.getJSONArray("courses").getString(x);
-                                                    index++;
-                                                }
-                                            } catch (JSONException e1) {
-                                                Log.d("TAG", "Main query JSON Exception: " + e1.getMessage());
-                                            }
-                                        }
-                                    } else {
-                                        Log.d("TAG", "Main Query1 Exception: "+e.getMessage());
-                                    }
-                                }
-                            });
                         }
-                        for (int i = 0; i < 4; i++)
-                            Log.d("TAG", "Course "+i+": "+arr_to_store_result_of_course_list[i]);
+                        ParseQuery<ParseObject> mainQuery1 = ParseQuery.or(queries1);
+                        mainQuery1.findInBackground(new FindCallback<ParseObject>() {
+                            @Override
+                            public void done(List<ParseObject> list, ParseException e) {
+                                dialog.dismiss();
+                                if (e == null) {
+                                    Log.d("TAG", "****************************************Courses****************************************");
+                                    int index = 0;
+
+                                    ArrayList<Integer> arrayList = new ArrayList<>(list.size());
+                                    for (int i = 0; i < list.size(); i++)
+                                        arrayList.add(i);
+                                    Collections.shuffle(arrayList);
+
+                                    for (ParseObject parseObject : list) {
+                                        int x = random.nextInt(parseObject.getJSONArray("courses").length());
+                                        try {
+                                            if (index < 4) {
+                                                if (index_arr[index] != 404)
+                                                    arr_to_store_result_of_course_list[index_arr[index]] = list.get(arrayList.get(index)).getJSONArray("courses").getString(x);
+                                                index++;
+                                            }
+                                        } catch (JSONException e1) {
+                                            Log.d("TAG", "Mini main query JSON Exception: " + e1.getMessage());
+                                        }
+                                    }
+                                } else {
+                                    Log.d("TAG", "Main Query1 Exception: " + e.getMessage());
+                                }
+                                startLayout();
+                            }
+                        });
                     } else {
-                        Log.d("TAG", "Main Query Exception: "+e.getMessage());
+                        Log.d("TAG", "Main Query Exception: " + e.getMessage());
                     }
                 }
             });
@@ -182,27 +195,31 @@ public class RoadMapCreation {
                     dialog.dismiss();
                     if (e == null) {
                         int index = 0;
-                        for (ParseObject parseObject: parseObjects) {
-                            //TODO: implement random object picking
+                        ArrayList<Integer> arrayList = new ArrayList<>(parseObjects.size());
+                        for (int i = 0; i < parseObjects.size(); i++)
+                            arrayList.add(i);
+                        Collections.shuffle(arrayList);
+                        Log.d("TAG", "****************************************Courses****************************************");
+                        for (ParseObject parseObject : parseObjects) {
                             int x = random.nextInt(parseObject.getJSONArray("courses").length());
                             try {
-                                Log.d("TAG", "(No Selection) Retrieved --> " + parseObject.getJSONArray("courses").getString(x));
                                 if (index < 4) {
-                                    arr_to_store_result_of_course_list[index] = parseObject.getJSONArray("courses").getString(x);
+                                    Log.d("TAG", "(No Selection) Course: " + parseObjects.get(arrayList.get(index)).getJSONArray("courses").getString(x));
+                                    arr_to_store_result_of_course_list[index] = parseObjects.get(arrayList.get(index)).getJSONArray("courses").getString(x);
                                     index++;
                                 }
                             } catch (JSONException e1) {
                                 Log.d("TAG", "(No Selection) Main query JSON Exception: " + e1.getMessage());
                             }
                         }
+                        startLayout();
                     } else {
                         Log.d("TAG", "(No Selection) Main Query Exception: " + e.getMessage());
                     }
                 }
             });
+
         }
-
-
 
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("Courses");
 //        query.whereEqualTo("tags", arr_to_search[0]);
@@ -221,6 +238,25 @@ public class RoadMapCreation {
 //                }
 //            }
 //        });
+    }
+
+    private void startLayout() {
+        Log.d("TAG", "Starting layout...");
+        for (String string: arr_to_store_result_of_course_list)
+            Log.d("TAG", "Course: "+string);
+        //TODO: call to new layout display to display roadMap list
+        headingTextView.setVisibility(View.INVISIBLE);
+        lv.setVisibility(View.INVISIBLE);
+        generate_roadmap_button.setVisibility(View.INVISIBLE);
+        spinner.setVisibility(View.INVISIBLE);
+
+        TextView heading_roadmap = (TextView)view.findViewById(R.id.title_roadmap);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, R.layout.roadmap_simple_list_item, android.R.id.text1, arr_to_store_result_of_course_list);
+        lv.setAdapter(adapter);
+        heading_roadmap.setVisibility(View.VISIBLE);
+        lv.setVisibility(View.VISIBLE);
+        generate_roadmap_button.setText("Create again");
+        generate_roadmap_button.setVisibility(View.VISIBLE);
     }
 
     public class CustomSpinnerAdapter extends ArrayAdapter<String>{
