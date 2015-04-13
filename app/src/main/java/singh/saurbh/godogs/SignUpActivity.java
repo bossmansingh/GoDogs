@@ -81,9 +81,16 @@ public class SignUpActivity extends ActionBarActivity {
             // Store values at the time of the login attempt.
             String email = mEmailView.getText().toString();
             String password = mPasswordView.getText().toString();
+            String confirmPassword = mConfirmPasswordView.getText().toString();
             String firstName = mFirstNameView.getText().toString();
             String lastName = mLastNameView.getText().toString();
-            String confirmPassword = mConfirmPasswordView.getText().toString();
+
+            //to remove any trailing white spaces
+            email = email.trim();
+            password = password.trim();
+            confirmPassword = confirmPassword.trim();
+            firstName = firstName.trim();
+            lastName = lastName.trim();
 
             boolean cancel = false;
             View focusView = null;

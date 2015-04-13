@@ -1,11 +1,13 @@
 package singh.saurbh.godogs;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -268,9 +271,22 @@ public class RoadMapCreation implements Runnable{
         generate_roadmap_button.setVisibility(View.VISIBLE);
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public void sendPDFasMail() {
-        generate_roadmap_button.setVisibility(View.INVISIBLE);
-        run();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Boolean check = true;
+            for (String string: arr_to_store_result_of_course_list) {
+                if (string == null)
+                    check = false;
+            }
+            if (check) {
+                generate_roadmap_button.setVisibility(View.INVISIBLE);
+                run();
+            } else {
+                Toast.makeText(mContext, "Create a road-map first", Toast.LENGTH_SHORT).show();
+            }
+        } else
+            Toast.makeText(mContext, "Your current android version does not support this feature.", Toast.LENGTH_SHORT).show();
     }
 
     @Override

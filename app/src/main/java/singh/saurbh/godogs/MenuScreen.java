@@ -177,8 +177,9 @@ public class MenuScreen extends ActionBarActivity
             if (mFragmentNumber == 2)
                 getMenuInflater().inflate(R.menu.menu_news, menu);
 
-            if (mFragmentNumber == 3)
+            if (mFragmentNumber == 3) {
                 getMenuInflater().inflate(R.menu.menu_roadmap, menu);
+            }
 
             // We should save our menu so we can use it to reset our updater.
             mMenu = menu;
