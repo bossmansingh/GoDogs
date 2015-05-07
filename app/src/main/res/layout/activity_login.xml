@@ -19,7 +19,7 @@
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp">
 
@@ -28,19 +28,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imageView"
-                android:background="@drawable/bulldog_image"
+                android:src="@drawable/bulldog_logo"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="20dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"/>
 
             <AutoCompleteTextView
                 android:id="@+id/email"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_email"
                 android:imeOptions="actionNext"
@@ -54,7 +58,7 @@
 
             <EditText
                 android:id="@+id/password"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_password"
                 android:imeActionId="100"
@@ -69,7 +73,7 @@
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
@@ -81,13 +85,13 @@
                 android:typeface="serif" />
 
             <LinearLayout
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/forgot_password"
                     android:id="@+id/forgotPasswordTextView"
@@ -98,10 +102,10 @@
                     android:gravity="center"
                     android:onClick="forgotPasswordTask"
                     android:typeface="serif"
-                    android:layout_marginLeft="30dp" />
+                    android:layout_weight="1"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/sign_up"
                     android:id="@+id/signUpTextView"
@@ -112,7 +116,7 @@
                     android:onClick="signUpUser"
                     android:typeface="serif"
                     android:gravity="center"
-                    android:layout_marginLeft="50dp" />
+                    android:layout_weight="1"/>
             </LinearLayout>
 
         </LinearLayout>

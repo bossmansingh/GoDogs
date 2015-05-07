@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/enter_activation_code_textView"
+        android:layout_gravity="center"
+        android:hint="Enter activation code"
+        android:textColor="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"/>
+</LinearLayout><!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/layout/dialog_activation_code.xml -->

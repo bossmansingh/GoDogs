@@ -1,0 +1,130 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="singh.saurabh.projecttest2.LoginActivity"
+    android:gravity="center"
+    android:transitionGroup="false">
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/addPost_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center" />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/bulldog_logo"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"/>
+
+            <AutoCompleteTextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_gravity="center_horizontal"
+                android:typeface="serif">
+
+            </AutoCompleteTextView>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_password"
+                android:imeActionId="100"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_gravity="center_horizontal"
+                android:typeface="serif" />
+
+            <Button
+                android:id="@+id/email_sign_in_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/action_sign_in"
+                android:textStyle="bold"
+                android:textColor="#c9ffffff"
+                android:background="#e3960606"
+                android:layout_gravity="center_horizontal"
+                android:onClick="attemptLogin"
+                android:typeface="serif" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/forgot_password"
+                    android:id="@+id/forgotPasswordTextView"
+                    android:clickable="true"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:onClick="forgotPasswordTask"
+                    android:typeface="serif"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sign_up"
+                    android:id="@+id/signUpTextView"
+                    android:clickable="true"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="signUpUser"
+                    android:typeface="serif"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+
+
+<!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/layout/activity_login.xml -->

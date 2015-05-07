@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_for_roadmap"
+        android:dropDownWidth="wrap_content"
+        android:dropDownSelector="@android:color/holo_orange_dark"
+        android:spinnerMode="dropdown"
+        android:layout_margin="15dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/layout_for_roadmap_list">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Select your field of interest"
+            android:id="@+id/heading_text_for_interest_list"
+            android:textStyle="bold"
+            android:typeface="serif"
+            android:textColor="@android:color/holo_orange_dark"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="left"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Fall 2015"
+            android:id="@+id/title_roadmap"
+            android:textColor="@android:color/holo_orange_dark"
+            android:typeface="serif"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="15dp"
+            android:visibility="gone" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@android:id/list"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:visibility="gone" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/roadmap_display_listView"
+            android:visibility="gone"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Generate RoadMap"
+            android:id="@+id/generate_roadmap_button"
+            android:background="#e3960606"
+            android:textColor="#c9ffffff"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:visibility="gone"
+            android:nestedScrollingEnabled="false"
+            android:clickable="true" />
+
+    </LinearLayout>
+
+
+</LinearLayout><!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/layout/roadmap_layout.xml -->

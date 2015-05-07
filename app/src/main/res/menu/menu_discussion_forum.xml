@@ -6,19 +6,17 @@
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:orderInCategory="100"/>
+        android:orderInCategory="1"/>
 
     <item
         android:id="@+id/action_refresh"
-        app:showAsAction="ifRoom"
-        android:title="Refresh"
-        android:orderInCategory="101"
-        android:icon="@android:drawable/ic_popup_sync" />
+        android:title="@string/action_refresh"
+        android:orderInCategory="2"/>
 
     <item
         android:id="@+id/action_search_discussion_forum"
-        android:title="Search"
-        android:orderInCategory="102"
+        android:title="@string/action_search"
+        android:orderInCategory="3"
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
@@ -26,11 +24,11 @@
     <item
         android:id="@+id/delete_post"
         android:title="@string/delete_post"
-        android:orderInCategory="103"/>
+        android:orderInCategory="4"/>
 
     <item android:id="@+id/action_logOut"
         android:title="@string/logout"
-        android:orderInCategory="104"/>
+        android:orderInCategory="5"/>
 
 
 </menu>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    // SwipeRefresh colors
+    <color name="swipe_color_1">#ffffa7a5</color>
+    <color name="swipe_color_2">#ffff8b86</color>
+    <color name="swipe_color_3">#ffff4d48</color>
+    <color name="swipe_color_4">#ffff0703</color>
+</resources>

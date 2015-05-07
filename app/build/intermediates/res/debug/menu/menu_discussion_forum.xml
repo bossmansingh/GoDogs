@@ -1,0 +1,35 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="singh.saurabh.projecttest2.MenuScreen" >
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="1"/>
+
+    <item
+        android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:orderInCategory="2"/>
+
+    <item
+        android:id="@+id/action_search_discussion_forum"
+        android:title="@string/action_search"
+        android:orderInCategory="3"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <item
+        android:id="@+id/delete_post"
+        android:title="@string/delete_post"
+        android:orderInCategory="4"/>
+
+    <item android:id="@+id/action_logOut"
+        android:title="@string/logout"
+        android:orderInCategory="5"/>
+
+
+</menu>
+<!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/menu/menu_discussion_forum.xml -->

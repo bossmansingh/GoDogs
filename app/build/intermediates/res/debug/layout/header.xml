@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2"
+        android:layout_marginTop="10dp" >
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/relativeLayout_container_for_message" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/view_message"
+                android:textColor="@android:color/background_dark"
+                android:layout_alignParentTop="true"
+                android:textIsSelectable="true"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:typeface="serif"
+                android:layout_centerInParent="true"
+                android:lineSpacingMultiplier="1.2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Replies"
+                android:id="@+id/textView_heading_replies"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/holo_orange_dark"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:layout_below="@+id/view_message"
+                android:layout_marginTop="15dp"
+                android:typeface="serif"
+                android:layout_marginBottom="15dp"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+    </ScrollView>
+</LinearLayout><!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/layout/header.xml -->

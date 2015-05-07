@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="singh.saurabh.godogs.SpinnerTest">
+
+    <item
+        android:id="@+id/action_sendAsPDF"
+        android:title="Send PDF via mail"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"
+        android:icon="@android:drawable/sym_action_email"/>
+
+
+</menu>
+<!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/menu/menu_roadmap.xml -->

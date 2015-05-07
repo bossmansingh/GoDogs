@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="singh.saurabh.projecttest2.AddPost"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
+
+    <ProgressBar
+        android:id="@+id/addPost_progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/addPostContainer">
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:hint="Title"
+            android:ems="10"
+            android:typeface="serif">
+
+            <requestFocus />
+        </EditText>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/title"
+            android:layout_above="@+id/submit">
+
+            <EditText
+                android:id="@+id/message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/title"
+                android:hint="Message"
+                android:ems="10"
+                android:typeface="serif" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:onClick="submitPost"
+            android:textColor="@android:color/background_light"
+            android:background="#e3960606"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:typeface="serif" />
+    </RelativeLayout>
+
+</RelativeLayout><!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/layout/activity_add_post.xml -->

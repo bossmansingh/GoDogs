@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="singh.saurabh.godogs.EditPost"
+    android:paddingLeft="10dp"
+    android:paddingTop="10dp"
+    android:paddingRight="10dp">
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/editPost_progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_centerInParent="true" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/editPostContainer" >
+
+        <EditText
+            android:id="@+id/editPostTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:hint="Title"
+            android:ems="10"
+            android:typeface="serif" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView3"
+            android:layout_below="@+id/editPostTitle"
+            android:layout_above="@+id/editSubmitButton" >
+
+            <EditText
+                android:id="@+id/edit_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/editPostTitle"
+                android:hint="Message"
+                android:ems="10"
+                android:typeface="serif" />
+        </ScrollView>
+
+        <Button
+            android:id="@+id/editSubmitButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:onClick="SubmitEditPost"
+            android:textColor="@android:color/background_light"
+            android:background="#e3960606"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:typeface="serif" />
+    </RelativeLayout>
+</RelativeLayout>
+<!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/layout/activity_edit_post.xml -->

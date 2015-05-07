@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="singh.saurabh.godogs.SinglePostDisplay">
+
+    <item
+        android:id="@+id/action_edit_post"
+        android:title="@string/edit_post"
+        android:orderInCategory="100"/>
+
+    <item android:id="@+id/action_delete_for_single_post"
+        android:title="@string/delete_post"
+        android:orderInCategory="101"/>
+
+    <item
+        android:id="@+id/action_refresh"
+        app:showAsAction="always"
+        android:title="@string/title_refresh"
+        android:orderInCategory="102"
+        android:icon="@android:drawable/ic_popup_sync" />
+
+    <item
+        android:id="@+id/action_logOut"
+        android:title="@string/logout"
+        android:orderInCategory="103"/>
+</menu>
+<!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/menu/menu_single_post_display.xml -->

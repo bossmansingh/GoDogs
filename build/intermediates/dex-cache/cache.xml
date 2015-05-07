@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Saurabh/Documents/sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-aed0d279535794e71dcaaa488ff760795192dc1f.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-0a666cec77ee643e228295251947cc560d94689d.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4cd0b093824b3228fffc21ea369b98d0b1db6566">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-fc79a38bb433857cd024f0e67ae8085dde05d788.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="29fd6d3794b71491c2789708cd8d03c71feb8954">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-7796593910386c3de3d24e54286d0f98b3012f5f.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-e47f134140d2f7c53b05c2d99e88eae6175c81b5.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ef5f051e7308febe289dc93c67c5f32785b4260a">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-ae02ba2324d6b63ae0a646fbb51e2f5b92168a55.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/libs/additionnal.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="bd9e8dc422bb8c8405359947fe9f4282b49f57f4">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/additionnal-738cc44c616ca86be0788613a34bdb869784fcae.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-98152b5c85020ce860a1bf70c82fb89e26a1f213.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-9e19e572f87479ff8ac0a55b0ef51a85d14eb986.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="41b3870cbe5fa546d8095b5b89d42cb69f3dd175">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-b940702bdfe6c834b8cb1767cb32dc66bdd3ee65.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/libs/activation.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d1257cbff6faa44c1f325ae0d9413522d4644383">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/activation-599b7547ddd28a4b591ad79cc4c97db7fdf4da9c.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/libs/Parse-1.8.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2936811d4ec66a394b7dd8b26c2d1d760e938741">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/Parse-1.8.4-b56f54e241f52a4f9bd03293f06f317954c248f2.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/libs/mail.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="428e267abff0d10802ccde86b915da2c20471160">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/mail-1c5258c286a6c4117cf220920cc334e303924a1a.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7ff613bf78ab057293892fdbd4169eda899c89b9">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-8fa75bbe6e1f4f01eface0aaef7faaaa0c1ed3ff.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-e0319f1fbf28ac3ba5e459719b9470ac9211f620.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.2/91c20388c9a45f62b5ed8fe0502bb76ff6251fc7/bolts-android-1.1.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="91c20388c9a45f62b5ed8fe0502bb76ff6251fc7">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/bolts-android-1.1.2-f5bf2ce0ca2e2251e144ad64c0eb529628ee5ac0.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-b6f49291952c904070a7b6586ab129b920ea9855.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9224bc4c54ba95147c7eabd874573763c07cb6be">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-0a6d132fd60931edd06373b095054c67bb3c4a3a.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1c5a76debf0c2857ccad422c4a80ed785982f8df">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-078f23df4bd0eb26f2b8529bec4c38f1333d0829.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-5edb60e97eedbed2042b70d4bedb2aed3e142e1c.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4c93d99d454c975536bbe3b42283eee847f03ea3">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-72a8cecc620d471117f53b5ecc12cd3fe842d5f7.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-cc12f508338018589ab991c0532669c6bf452ffc.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-33aa98a1bc10bf6720e59bc0062ff4d9e2f5c111.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e3d791b42eaa90416cd0b2d2e608092794a3baa4">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-38cca46498083298eb44a4aef51ff2fbedc5acfb.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c976518693e89ad44fbfccfc654941eaec198d08">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-437dfd15745bcef0d230102e97495f3173a6fc7a.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="055783146ba9654a725442563be78cad303aad1f">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-97191fc887b72b2c927fd0105e3435646f34ef18.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a08d65794b844d8e7540bf9a33859bf3b2482d7f">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-2e75eb33ada55a1e160488b60180f140f6ac301a.jar" />
+    </item>
+    <item
+        jar="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
+        <dex dex="/Users/Saurabh/Documents/Android_Projects/GoDogs/app/build/intermediates/pre-dexed/debug/classes-41c9d12f1b5a5310815e64f855fecf12bc99aab0.jar" />
+    </item>
+
+</items>

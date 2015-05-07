@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="singh.saurabh.projecttest2.MenuScreen" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="1"/>
+
+    <item
+        android:id="@+id/action_refresh"
+        android:title="@string/action_refresh"
+        android:orderInCategory="2"/>
+
+    <item
+        android:id="@+id/action_logOut"
+        android:title="@string/logout"
+        android:orderInCategory="3"/>
+
+
+</menu>
+<!-- From: file:/Users/Saurabh/Documents/Android_Projects/GoDogs/app/src/main/res/menu/menu_news.xml -->
